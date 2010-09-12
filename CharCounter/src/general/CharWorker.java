@@ -40,12 +40,12 @@ public class CharWorker {
     charHash = new HashMap<String, Integer>();
   }
   public String toString() {
-    String result = "";
+    StringBuffer result = new StringBuffer("");
     Set<String> keySet = charHash.keySet();
     TreeSet<String> treeSet = new TreeSet<String>(keySet);    
     for (String key : treeSet) {
-      result += (key + " - " + charHash.get(key) + "\n"); 
+      result.append(key + " - " + charHash.get(key) + "\n"); 
     }
-    return result;
+    return result.toString();
   }
 }
