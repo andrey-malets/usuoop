@@ -3,6 +3,8 @@ package bot.run;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -12,10 +14,11 @@ import bot.general.Bot;
 import bot.general.Game;
 
 public class Runner {
-  private Bot bot;
+  private Class botClass = null;
+  private Bot bot = null;
   private ServerSocket serverSocket = null;
-  public Runner(Bot bot) {
-    this.bot = bot; 
+  public Runner(Class botClass) {
+    this.botClass = botClass; 
   }
   public void start() {    
     try {
@@ -55,10 +58,28 @@ public class Runner {
         basesData = reader.readLine();          
       }
       
-      Game game = new Game(playerData,locationData,mapData,chokesData,basesData);
+      Game game = new Game(playerData,locationData,mapData,chokesData,basesData);      
       
-      System.out.println(locationData);
-    } catch (SocketException e) {
+      
+      try {
+        Constructor constructor = botClass.getConstructor(Game.class);        
+        bot = (Bot) constructor.newInstance(game);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      
+      new Thread(bot).start();
+      
+      
+      while (true) {
+        String update = reader.readLine();        
+        
+        game.update(update);
+        
+        socketGame.getOutputStream().write(game.getCommandQueue().getCommands().getBytes());
+      }
+      
+    } catch (SocketException e) {      
       System.err.println("[-] Starcraft disconnected!");
     } catch (IOException e) {
       e.printStackTrace();

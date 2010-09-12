@@ -1,6 +1,6 @@
 package bot.run;
 
-import bot.general.SimpleBot;
+import bot.bots.SimpleBot;
 
 public class Main {
 
@@ -8,7 +8,7 @@ public class Main {
    * @param args
    */
   public static void main(String[] args) {
-    new Runner(new SimpleBot()).start();
+    new Runner(SimpleBot.class).start();
   }
 
 }
