@@ -1,4 +1,4 @@
-package bot.util;
+package bot.game;
 
 import java.util.ArrayList;
 

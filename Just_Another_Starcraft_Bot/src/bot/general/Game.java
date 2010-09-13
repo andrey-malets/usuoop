@@ -3,8 +3,8 @@ package bot.general;
 import java.util.ArrayList;
 
 import bot.command.CommandQueue;
-import bot.util.Player;
-import bot.util.StartLocation;
+import bot.game.Player;
+import bot.game.StartLocation;
 
 public class Game {
   private int botId;
