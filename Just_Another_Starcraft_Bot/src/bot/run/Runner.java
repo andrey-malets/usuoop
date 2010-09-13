@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 import bot.config.Config;
+import bot.game.Unit;
 import bot.general.Bot;
 import bot.general.Game;
 
@@ -73,9 +74,13 @@ public class Runner {
       
       while (true) {
         String update = reader.readLine();        
+        game.update(update);        
         
-        game.update(update);
-        
+        for (Unit unit : game.getBot().getPlayerUnit()) {
+          System.out.println(unit.getUnitTypeId());        
+        } 
+               
+        System.exit(0);
         socketGame.getOutputStream().write(game.getCommandQueue().getCommands().getBytes());
       }
       

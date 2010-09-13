@@ -7,10 +7,11 @@ public class Player {
   private String playerRace;
   private String playerName;
   private int playerType;
-  private int playerAlly;
+  private int playerAlly;  
+  private ArrayList<Unit> playerUnit = null;
   
   public static ArrayList<Player> getPlayers(String playerData) {
-    ArrayList<Player> players = new ArrayList<Player>();
+    ArrayList<Player> players = new ArrayList<Player>();    
     String playerDatas[] = playerData.split(":");    
     for (String string : playerDatas) {      
       String playerAttr[] = string.split(";");      
@@ -30,6 +31,21 @@ public class Player {
     return players;    
   }
 
+  public void update(String updateData) {
+    playerUnit = new ArrayList<Unit>();
+    String[] updateDatas = updateData.split(":");    
+    for (String string : updateDatas) {
+      String[] unitInfo = string.split(";");
+      if (unitInfo[0].equals("s"))
+        continue;
+      if (getPlayerId() == Integer.parseInt(unitInfo[1])) 
+        playerUnit.add(new Unit(unitInfo));      
+    }    
+    
+  }
+  public ArrayList<Unit> getPlayerUnit() {
+    return playerUnit;
+  }
   private void setPlayerId(int playerId) {
     this.playerId = playerId;
   }
@@ -68,6 +84,6 @@ public class Player {
 
   public int getPlayerAlly() {
     return playerAlly;
-  }
+  }  
 }
 
