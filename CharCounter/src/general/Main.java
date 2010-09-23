@@ -1,5 +1,7 @@
 package general;
 
+import view.MySimpleView;
+
 public class Main {
 
 	/**
@@ -9,6 +11,6 @@ public class Main {
 	public static void main(String[] args) {
 	  CharWorker charWorker = new CharWorker("[A1a]");
 	  charWorker.update("ABCabc123");
-	  System.out.println(charWorker);
+	  System.out.println(new MySimpleView(charWorker).getRepresentation());
 	}
 }
