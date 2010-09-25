@@ -1,4 +1,4 @@
-package general;
+package model;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;

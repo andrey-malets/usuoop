@@ -3,7 +3,8 @@ package test;
 import java.util.HashMap;
 import java.util.Random;
 
-import general.CharWorker;
+import model.CharWorker;
+
 import junit.framework.TestCase;
 
 

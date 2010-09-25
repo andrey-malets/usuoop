@@ -3,7 +3,8 @@ package view;
 import java.util.HashMap;
 import java.util.TreeSet;
 
-import general.CharWorker;
+import model.CharWorker;
+
 /**
  * Класс предназначен для удобного вывода класса CharWorker.
  * @author ld

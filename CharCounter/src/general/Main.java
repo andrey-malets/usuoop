@@ -1,5 +1,6 @@
 package general;
 
+import model.CharWorker;
 import view.MySimpleView;
 
 public class Main {
@@ -9,8 +10,8 @@ public class Main {
 	 */  
   
 	public static void main(String[] args) {
-	  CharWorker charWorker = new CharWorker("[A1a]");
-	  charWorker.update("ABCabc123");
+	  CharWorker charWorker = new CharWorker("[1a]");
+	  charWorker.update("ABCab\nc123");
 	  System.out.println(new MySimpleView(charWorker).getRepresentation());
 	}
 }
