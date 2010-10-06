@@ -2,14 +2,12 @@ package test;
 
 import java.util.HashMap;
 import java.util.Random;
-
-import model.CharWorker;
-
 import junit.framework.TestCase;
 
 
 
 public class MyTestCase  extends TestCase {
+  /*
   public static String getRandomString(int length,char ABC[]) {
     StringBuffer stringBuffer = new StringBuffer();
     Random random = new Random();
@@ -50,5 +48,6 @@ public class MyTestCase  extends TestCase {
         assertEquals(firstUpdate.get(c).intValue(),secondUpdate.get(c).intValue());
       }
     }
-  }  
+  }
+  */  
 }
