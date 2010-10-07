@@ -1,14 +1,16 @@
 package test;
 
-import java.util.HashMap;
 import java.util.Random;
+
+import map.ImmutableMap;
+
+import counter.HashCounter;
+
 import junit.framework.TestCase;
 
 
-
 public class MyTestCase  extends TestCase {
-  /*
-  public static String getRandomString(int length,char ABC[]) {
+  public static String getRandomString(int length,Character ABC[]) {
     StringBuffer stringBuffer = new StringBuffer();
     Random random = new Random();
     for (int i = 0;i < length; ++i) {
@@ -17,37 +19,42 @@ public class MyTestCase  extends TestCase {
     return stringBuffer.toString();
   }
   public void testSimple() {    
-    final char c = 'a';
-    final int howManyTimes = 100;    
-    final CharWorker charWorker = new CharWorker();
+     final Character c[] = { 'a' };
+    final String string = "a";
+    final int howManyTimes = 100;
+    
+    HashCounter<Character> hashCounter = new HashCounter<Character>();   
     
     for (int i = 0; i < howManyTimes; ++i) {
-      charWorker.update(new String(new char[] { c }));
+      hashCounter.updateState(separator.Separator.getCharacterSeparator(string, c));
     }
-    assertEquals(charWorker.getCurrentState().get(c).intValue(),howManyTimes);
+    assertEquals(hashCounter.getCurrentState().get(c[0]).intValue(),howManyTimes);
   }
-  public void testProperty() {
-    final int length = 100;
+  
+  public void testConcatProperty() {
+    final int length = 10000;
     final int howManyTimes = 100;    
-    final char ABC[] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};    
-    final CharWorker charWorker = new CharWorker();
-    
-    for (int i = 0;i < howManyTimes; ++i) {
-      String firstTestString = getRandomString(length, ABC);
-      String secondTestString = getRandomString(length, ABC);      
-      String thirdTestString = firstTestString + secondTestString;
+    final Character ABC[] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    HashCounter<Character> hashCounter = new HashCounter<Character>();
+    for (int i = 0;i<howManyTimes; ++i) {
+      String one = getRandomString(length, ABC);
+      String two = getRandomString(length, ABC);
+      String three = one + two;      
       
-      charWorker.update(firstTestString);      
-      HashMap<Character, Integer> firstUpdate = charWorker.update(secondTestString);
+      hashCounter.updateState(separator.Separator.getCharacterSeparator(one, ABC));
+      hashCounter.updateState(separator.Separator.getCharacterSeparator(two, ABC));    
+      ImmutableMap<Character, Integer> firstState = hashCounter.getCurrentState();      
+      hashCounter.clearState();
       
-      charWorker.clear();
+      hashCounter.updateState(separator.Separator.getCharacterSeparator(three, ABC));      
+      ImmutableMap<Character, Integer> secondState = hashCounter.getCurrentState();
+      hashCounter.clearState();
       
-      HashMap<Character, Integer> secondUpdate = charWorker.update(thirdTestString);
-      
-      for (char c : firstUpdate.keySet()) {
-        assertEquals(firstUpdate.get(c).intValue(),secondUpdate.get(c).intValue());
+      for (Character character : hashCounter.getCurrentState().keySet()) {
+        System.out.println(firstState.get(character));
+        System.out.println(secondState.get(character));
+        assertEquals(firstState.get(character).intValue(),secondState.get(character).intValue());
       }
     }
-  }
-  */  
+  }    
 }

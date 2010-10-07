@@ -1,6 +1,7 @@
 package map;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ public class FilterMap<K,V> implements ImmutableMap<K,V> {
   private final Map<K,V> hashMap;
   
   public FilterMap(Map<K, V> hashMap)  {
-    this.hashMap = hashMap;
+    this.hashMap = new HashMap<K, V>(hashMap);
   }
   
   public int size() {
