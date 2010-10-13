@@ -12,31 +12,31 @@ public class CharAllow implements Validate<Character> {
   public CharAllow(Iterable<Character> allowCharacters) {
     this.allowCharacters = allowCharacters;
   }
-  
+
   public CharAllow(Character[] allowCharacters) {
     ArrayList<Character> arrayList = new ArrayList<Character>();
     for (Character character : allowCharacters) {
       arrayList.add(character);
-    }    
+    }
     this.allowCharacters = arrayList;
   }
-  
+
   public CharAllow(String re) {
-    this.useRegex  = true;
+    this.useRegex = true;
     this.pattern = Pattern.compile(re);
   }
-  
-  public boolean isValid(Character k) {    
+
+  public boolean isValid(Character k) {
     if (useRegex) {
       Matcher matcher = pattern.matcher(k.toString());
-      if(matcher.find()) {
+      if (matcher.find()) {
         if (matcher.group().equals(k.toString()))
           return true;
       }
     } else {
-      for (Character c : allowCharacters) 
+      for (Character c : allowCharacters)
         if (c.equals(k))
-          return true;        
+          return true;
     }
     return false;
   }

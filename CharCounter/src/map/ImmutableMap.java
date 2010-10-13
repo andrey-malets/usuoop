@@ -3,21 +3,21 @@ package map;
 import java.util.Collection;
 import java.util.Set;
 
-public interface ImmutableMap<K,V> {
-  
-public int size();
+public interface ImmutableMap<K, V> {
 
-public boolean isEmpty();
+  public int size();
 
-public boolean containsKey(Object key);
+  public boolean isEmpty();
 
-public boolean containsValue(Object value);
+  public boolean containsKey(Object key);
 
-public V get(K key);
-      
-public Set<K> keySet();
+  public boolean containsValue(Object value);
 
-public Collection<V> values();
+  public V get(K key);
 
-public Set<java.util.Map.Entry<K, V>> entrySet();
+  public Set<K> keySet();
+
+  public Collection<V> values();
+
+  public Set<java.util.Map.Entry<K, V>> entrySet();
 }
