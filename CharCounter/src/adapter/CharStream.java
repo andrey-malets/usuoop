@@ -3,26 +3,20 @@ package adapter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import functor.Validate;
+
 public class CharStream implements Iterable<Character> {
   private final String string;
-  private final Iterable<Character> allowCharacters;
+  private final Validate<Character> validate;
   
-  public CharStream(String string, Iterable<Character> allowCharacters) {
-    this.string = string;
-    this.allowCharacters = allowCharacters;    
-  }
   
-  public CharStream(String string, Character[] allowCharacters) {    
-    ArrayList<Character> arrayList = new ArrayList<Character>();
-    for (Character character : allowCharacters) {
-      arrayList.add(character);
-    }
+  public CharStream(String string, Validate<Character> validate) {
     this.string = string;
-    this.allowCharacters = arrayList;    
-  }
+    this.validate = validate;
+  } 
   
   public Iterator<Character> iterator() {    
-    return new CharIterator(string,allowCharacters);
+    return new CharIterator(string,validate);
   } 
 
 }
