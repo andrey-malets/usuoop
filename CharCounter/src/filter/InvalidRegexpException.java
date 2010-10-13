@@ -1,4 +1,4 @@
-package separator;
+package filter;
 
 public class InvalidRegexpException extends Exception {
   public InvalidRegexpException(String error) {

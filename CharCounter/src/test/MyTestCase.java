@@ -26,7 +26,7 @@ public class MyTestCase  extends TestCase {
     HashCounter<Character> hashCounter = new HashCounter<Character>();   
     
     for (int i = 0; i < howManyTimes; ++i) {
-      hashCounter.updateState(separator.Separator.getCharacterSeparator(string, c));
+      hashCounter.updateState(filter.Filter.getCharacterSeparator(string, c));
     }
     assertEquals(hashCounter.getCurrentState().get(c[0]).intValue(),howManyTimes);
   }
@@ -41,12 +41,12 @@ public class MyTestCase  extends TestCase {
       String two = getRandomString(length, ABC);
       String three = one + two;      
       
-      hashCounter.updateState(separator.Separator.getCharacterSeparator(one, ABC));
-      hashCounter.updateState(separator.Separator.getCharacterSeparator(two, ABC));    
+      hashCounter.updateState(filter.Filter.getCharacterSeparator(one, ABC));
+      hashCounter.updateState(filter.Filter.getCharacterSeparator(two, ABC));    
       ImmutableMap<Character, Integer> firstState = hashCounter.getCurrentState();      
       hashCounter.clearState();
       
-      hashCounter.updateState(separator.Separator.getCharacterSeparator(three, ABC));      
+      hashCounter.updateState(filter.Filter.getCharacterSeparator(three, ABC));      
       ImmutableMap<Character, Integer> secondState = hashCounter.getCurrentState();
       hashCounter.clearState();
       
