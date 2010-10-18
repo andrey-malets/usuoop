@@ -16,7 +16,7 @@ public class Cleaner {
 		pattern = Pattern.compile(str);
 	}
 /**
- * Чистит строку от лишних символов
+ * пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  * @param String
  * @return List<Character>
  */
@@ -31,16 +31,16 @@ public class Cleaner {
 		return list;
 	}
 /**
- * Чистит char[] от лишних символов
+ * пїЅпїЅпїЅпїЅпїЅпїЅ char[] пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  * @param char[]
  * @return List<Character>
  */
 	public List<Character> chooseCharacters(char[] buff){
-			String s = "";
+			StringBuffer s = new StringBuffer();
 			for (Character it: buff){
-				s+=it;
+				s.append(it);
 			}
-			return chooseCharacters(s);
+			return chooseCharacters(s.toString());
 	}
 	public Pattern getRegExp() {
 		return pattern;

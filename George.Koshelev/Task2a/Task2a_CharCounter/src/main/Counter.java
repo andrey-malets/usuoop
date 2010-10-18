@@ -1,6 +1,5 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,31 +11,34 @@ public class Counter {
 		main_hash = new HashMap<Character, Integer>();
 	}
 /**
- * Записывает в main_hash количество каждого символа из переданного List<Character>
+ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ main_hash пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ List<Character>
  * @param list
  */
 	public void counter(List<Character> list) {
-		for (final Character ch : list) {
+	Character [] l = list.toArray(new Character[list.size()]);
+	counter(l);
+	}
+/**
+* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ main_hash пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ char[] buff
+* @param list
+*/
+	public void counter(Character []buff){
+		for (final Character ch : buff) {
 			if ((main_hash.get(ch)) != null) {
 				main_hash.put(ch, main_hash.get(ch) + 1);
 			} else {
 				main_hash.put(ch, 1);
 			}
 		}
-	}
-/**
-* Записывает в main_hash количество каждого символа из переданного char[] buff
-* @param list
-*/
-	public void counter(char []buff){
-	 List<Character> list = new ArrayList<Character>();
+		/* List<Character> list = new ArrayList<Character>();
 		for(char it: buff){
 		 list.add(it);
 	 }
 		counter(list);
+		*/
 	}
 /**
- * Возвращает копию main_hash
+ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ main_hash
  * @return Map<Character,Integer>
  */
 	public Map<Character, Integer> getMap() {

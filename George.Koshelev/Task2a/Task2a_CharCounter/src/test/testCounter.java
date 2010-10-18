@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 
 public class testCounter extends TestCase {
 /**
- * Проверка на подсчет символов из List<Character>
+ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ List<Character>
  */
 	public void testcounter() {
 		Counter co_1 = new Counter();
@@ -46,14 +46,14 @@ public class testCounter extends TestCase {
 		assertEquals(co_3.getMap(), map_b);
 	}
 	/**
-	 * Проверка на подсчет символов в char[?] 
+	 * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ char[?] 
 	 */
 	public void testcounter_1(){
 		Counter co_1 = new Counter();
 		Counter co_2 = new Counter();
 		Counter co_3 = new Counter();
-		char[] char_a = new char[1000];
-		char[] char_b = new char[1000];
+		Character [] char_a = new Character[1000];
+		Character [] char_b = new Character[1000];
 
 		Random rn = new Random(100);
 		for (int i = 0; i < 1000; i++) {

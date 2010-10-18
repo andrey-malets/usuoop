@@ -20,7 +20,7 @@ public class ReadFile {
 				new FileInputStream("src/main/".concat(way)))));
 	}
 /**
- * Считывает строку из файла
+ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
  * @return String 
  * @throws IOException
  */
@@ -29,7 +29,7 @@ public class ReadFile {
 		return str;
 	}
 /**
- * Считывает определенное количество символов с файла
+ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
  * @param length
  * @return String
  * @throws IOException
@@ -40,7 +40,7 @@ public class ReadFile {
 		return cbuf;		
 	}
 /**
- * Считывает символ
+ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
  * @return char
  * @throws IOException
  */
@@ -49,15 +49,16 @@ public class ReadFile {
 		return (char)a;
 	}
 /**
- * Считывает весь файл
+ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
  * @return String 
  * @throws IOException
  */
 	public String readAll() throws IOException{
-		String a,text = "";
+		String a = "";
+		StringBuffer text = new StringBuffer();
 		while ((a = br.readLine()) != null) {
-			text += a;
+			text.append(a);
 		}
-		return text;
+		return text.toString();
 	}
 }
