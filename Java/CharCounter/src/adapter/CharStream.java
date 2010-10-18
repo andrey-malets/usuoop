@@ -1,8 +1,6 @@
 package adapter;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-
 import functor.Validate;
 
 public class CharStream implements Iterable<Character> {
