@@ -1,6 +1,8 @@
 ﻿
 
-using System.Collections.Generic;
+using System;
+using System.Collections;
+using CharCounter.Counter;
 
 namespace CharCounter
 {
@@ -8,10 +10,12 @@ namespace CharCounter
   {
     private static void Main()
     {
-      var hashCounter = new Counter.HashCounter<char>();
-      var list = new List<char>();
-      list.Add('1');
-      hashCounter.Update(list);
+      var hashCounter = new HashCounter<Char>();
+      hashCounter.Update("1234512345");
+      foreach (DictionaryEntry k in hashCounter.State())
+      {
+        Console.WriteLine(k.Key + " " + k.Value);
+      };
     }
   }
 }
