@@ -1,82 +1,69 @@
 package main;
 
-public class Vector3D{
-	private double x;
-	private double y;
-	private double z;
-
-	public Vector3D() {
-		this.x = 0;
-		this.y = 0;
-		this.z = 0;
+public class Vector3D implements Vector{
+private double[] param;
+private final int dimension;
+	public Vector3D(int[] a){
+		this.dimension = a.length;
+		this.param = new double[a.length];
+		int i=0;
+		for (int x:a){
+			this.param[i++] = (double) x;
+		}
+	}
+	
+	public Vector3D(double[] a) {
+		this.dimension = a.length;
+		this.param = a.clone();
 	}
 
-	public Vector3D(double x) {
-		this.x = x;
-		this.y = 0;
-		this.z = 0;
+	public int dimension() {
+		return this.dimension;
 	}
 
-	public Vector3D(double x, double y) {
-		this.x = x;
-		this.y = y;
-		this.z = 0;
+	public double getComponent(int i) {
+		return this.param[i];
 	}
 
-	public Vector3D(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
-
-	public double getX() {
-		return this.x;
-	}
-
-	public double getY() {
-		return this.y;
-	}
-
-	public double getZ() {
-		return this.z;
-	}
-
-	public double scalar(Vector3D v) {
-		return v.getX() * this.x + v.getY() * this.y + v.getZ() * this.z;
+	public double scalar(Vector v) throws VectorException{
+		if (v.dimension()!=this.dimension){
+				throw new VectorException("Mismatch of dimensions");
+		}
+			double scalar = 0.0;
+			for (int i=0;i<this.dimension;i++){
+				scalar+=this.param[i]*v.getComponent(i);
+			}
+			return scalar;	
 	}
 
 	public double len() {
-		return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)
-				+ Math.pow(this.z, 2));
+		double len = 0.0;
+		for(int i=0;i<this.dimension;i++){
+			len += Math.pow(this.param[i],2.0);
+		}
+		return Math.sqrt(len);
 	}
 
-	public Vector3D multiply(double factor) {
-		this.x *= factor;
-		this.y *= factor;
-		this.z *= factor;
-		Vector3D vec = new Vector3D(this.x,this.y,this.z);
-		return vec;
+
+	public Vector multiply(double factor) {
+		for (int i=0;i<this.dimension;i++){
+				this.param[i]*=factor;
+		}
+		return new Vector3D(this.param);
 	}
-	public Vector3D add(Vector3D v){
-		this.x += v.getX();
-		this.y += v.getY();
-		this.z += v.getZ();
-		Vector3D vec = new Vector3D(this.x,this.y,this.z);
-		return vec;
+
+	public Vector add(Vector v) {
+		for(int i=0;i<this.dimension;i++){
+				this.param[i]+=v.getComponent(i);
+		}
+		return new Vector3D(this.param);
 	}
-	public Vector3D sub(Vector3D v){
-		this.x -= v.getX();
-		this.y -= v.getY();
-		this.z -= v.getZ();
-		Vector3D vec = new Vector3D(this.x,this.y,this.z);
-		return vec;
+
+	public Vector sub(Vector v) {
+		for(int i=0;i<this.dimension;i++){
+			this.param[i]-=v.getComponent(i);
 	}
-	public String getCo(){
-		StringBuffer a = new StringBuffer();
-		a.append(this.x);
-		a.append(this.y);
-		a.append(this.z);
-		return a.toString();
+	return new Vector3D(this.param);
 	}
-	
+
 }
