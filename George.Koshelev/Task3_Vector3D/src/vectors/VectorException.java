@@ -1,4 +1,4 @@
-package main;
+package vectors;
 
 public class VectorException extends Exception {
 

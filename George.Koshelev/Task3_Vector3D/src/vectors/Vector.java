@@ -1,6 +1,7 @@
-package main;
+package vectors;
 
-interface Vector {
+
+public interface Vector {
 	public int dimension();
 	public double getComponent(int i);
 	public double scalar (Vector v) throws VectorException;
