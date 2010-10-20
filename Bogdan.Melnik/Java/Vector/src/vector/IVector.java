@@ -10,6 +10,10 @@ public interface IVector<V> {
   public IVector<V> add(IVector<V> rhs)
       throws MissmatchDimensionException, OutOfComponentIndexException;
 
-  double scalar(IVector<V> rhs) throws MissmatchDimensionException,
+  public IField<V> scalar(IVector<V> rhs) throws MissmatchDimensionException,
       OutOfComponentIndexException;
+  
+  public IField<V> getLength();
+  public IVector<V> mul(IField<V> factor) throws OutOfComponentIndexException;  
+  public IVector<V> sub(IVector<V> rhs); 
 }

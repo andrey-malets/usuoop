@@ -9,13 +9,14 @@ public class Main {
 
   public static void main(String[] args) throws OutOfComponentIndexException,
       MissmatchDimensionException {
-    RealField one[] = new RealField[] { new RealField(5.), new RealField(1.) };
-    RealField two[] = new RealField[] { new RealField(2.), new RealField(7.) };
+    RealField one[] = new RealField[] { new RealField(3.), new RealField(2.) };
+    RealField two[] = new RealField[] { new RealField(1.), new RealField(2.) };
     Vector<Double> firstVector = new Vector<Double>(
         2, one);
     Vector<Double> secondVector = new Vector<Double>(
         2, two);
-    Vector<Double> add = firstVector.add(secondVector);
-    System.out.println(add);
+    RealField realField = new RealField(2.);
+    System.out.println(firstVector.mul(realField));
+    System.out.println(secondVector.mul(realField));
   }
 }

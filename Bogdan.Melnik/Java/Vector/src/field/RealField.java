@@ -31,10 +31,24 @@ public class RealField implements IField<Double> {
 
   public RealField mul(IField<Double> rhs) throws OutOfComponentIndexException {
     return new RealField(_elem.doubleValue()
-        + rhs.getComponent(0).doubleValue());
+        * rhs.getComponent(0).doubleValue());
   }
   
   public String toString() {
     return _elem.toString();
+  }
+  
+  public boolean equals(Object rhs) {
+    if (this == rhs)
+      return true;
+    if (rhs instanceof RealField) {
+      RealField realRhs = (RealField) rhs;
+      try {
+        return (realRhs.getComponent(0).doubleValue() == this.getComponent(0).doubleValue());
+      } catch (OutOfComponentIndexException e) {
+        return false;
+      }
+    }
+    return true;
   }
 }
