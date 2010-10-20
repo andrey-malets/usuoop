@@ -33,4 +33,8 @@ public class RealField implements IField<Double> {
     return new RealField(_elem.doubleValue()
         + rhs.getComponent(0).doubleValue());
   }
+  
+  public String toString() {
+    return _elem.toString();
+  }
 }
