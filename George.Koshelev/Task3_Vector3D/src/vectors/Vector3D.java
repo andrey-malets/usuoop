@@ -1,94 +1,105 @@
 package vectors;
 
-public class Vector3D implements Vector {
-	private double[] param;
+import java.util.ArrayList;
+import java.util.List;
+
+import calc.Calc;
+
+public class Vector3D<K> implements Vector<K> {
+
+	private List<K> param;
 	private final int dimension;
 
 	public Vector3D() {
 		this.dimension = 0;
+		this.param = new ArrayList<K>();
 	}
 
-	public Vector3D(int[] a) {
+	public Vector3D(K[] a) {
 		this.dimension = a.length;
-		this.param = new double[a.length];
-		int i = 0;
-		for (int x : a) {
-			this.param[i++] = (double) x;
+		this.param = new ArrayList<K>();
+		for (K x : a) {
+			this.param.add(x);
 		}
 	}
 
-	public Vector3D(double[] a) {
-		this.dimension = a.length;
-		this.param = a.clone();
-	}
-
 	public double getX() {
-		return this.param[0];
+		return (Double) this.param.get(0);
 	}
 
 	public double getY() {
-		return this.param[1];
+		return (Double) this.param.get(1);
 	}
 
 	public double getZ() {
-		return this.param[2];
+		return (Double) this.param.get(2);
 	}
 
 	public int dimension() {
 		return this.dimension;
 	}
 
-	public double getComponent(int i) {
-		return this.param[i];
-	}
-	public double[] getComponents(){
-		return this.param;
+	public K getComponent(int i) {
+		return this.param.get(i);
 	}
 
-	public double scalar(Vector v) throws VectorException {
+	public Double[] getComponents() {
+		return (Double[]) this.param.toArray();
+	}
+
+	public <Integer> double scalar(Vector3D<K> v) throws VectorException {
 		if (v.dimension() != this.dimension) {
 			throw new VectorException("Mismatch of dimensions");
 		}
 		double scalar = 0.0;
 		for (int i = 0; i < this.dimension; i++) {
-			scalar += this.param[i] * v.getComponent(i);
+			scalar += (Double)this.getComponent(i)*(Double)v.getComponent(i);
 		}
 		return scalar;
 	}
-
 	public double len() {
 		double len = 0.0;
 		for (int i = 0; i < this.dimension; i++) {
-			len += Math.pow(this.param[i], 2.0);
+			len += Math.pow((Double) this.param.get(i), 2.0);
 		}
 		return Math.sqrt(len);
 	}
 
-	public Vector3D multiply(double factor) {
+	public Vector3D<K> multiply(K factor) {
+		List<Double> newList = new ArrayList<Double>();
 		for (int i = 0; i < this.dimension; i++) {
-			this.param[i] *= factor;
+			newList.add((Double) this.param.get(i) * (Double) factor);
 		}
-		return new Vector3D(this.param);
+		this.param = (List<K>) newList;
+		return new Vector3D((K[]) newList.toArray());
 	}
 
-	public Vector3D add(Vector v) {
+	public Vector3D<K> add(Vector3D<K> v) {
+		List<Double> newList = new ArrayList<Double>();
+		Calc calc = new Calc();
 		for (int i = 0; i < this.dimension; i++) {
-			this.param[i] += v.getComponent(i);
+			newList.add(calc.add(v.getComponent(i),this.param.get(i)));
 		}
-		return new Vector3D(this.param);
+		this.param = new ArrayList<K>((List<K>) newList);
+		return new Vector3D((K[])newList.toArray());
 	}
 
-	public Vector3D sub(Vector v) {
+	public Vector3D<K> sub(Vector<K> v) {
+		List<Double> newList = new ArrayList<Double>();
 		for (int i = 0; i < this.dimension; i++) {
-			this.param[i] -= v.getComponent(i);
+			newList.add((Double) this.param.get(i) - (Double) v.getComponent(i));
 		}
-		return new Vector3D(this.param);
+		this.param = new ArrayList<K>((List<K>) newList);
+		return new Vector3D<K>((K[])newList.toArray());
 	}
-	public String getVectorToString(){
+
+	public String getVectorToString() {
 		StringBuffer a = new StringBuffer();
-		for(double d:this.param){
-				a.append(d);
+		a.append('<');
+		for (K d : this.param) {
+			a.append(d);
 		}
-	return a.toString();
+		a.append('>');
+		return a.toString();
 	}
 }

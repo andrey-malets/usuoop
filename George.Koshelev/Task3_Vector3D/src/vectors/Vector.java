@@ -1,12 +1,13 @@
 package vectors;
 
 
-public interface Vector {
+public interface Vector<K> {
 	public int dimension();
-	public double getComponent(int i);
-	public double scalar (Vector v) throws VectorException;
+	public K getComponent(int i);
+	public double scalar (Vector<K> v) throws VectorException;
 	public double len();
-	public Vector multiply(double factor);
-	public Vector add(Vector v);
-	public Vector sub(Vector v);
+	public Vector<K> multiply(K factor);
+	public Vector<K> add(Vector<K> v);
+	public Vector<K> sub(Vector<K> v);
+	public Double[] getComponents();
 }
