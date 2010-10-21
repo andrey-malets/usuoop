@@ -3,11 +3,12 @@ package test;
 import java.util.ArrayList;
 import java.util.Random;
 
+import exceptions.InvalidValueException;
+import exceptions.MissmatchDimensionException;
+import exceptions.OutOfComponentIndexException;
 import field.IField;
 import field.RealField;
 import vector.IVector;
-import vector.MissmatchDimensionException;
-import vector.OutOfComponentIndexException;
 import vector.Vector;
 import junit.framework.TestCase;
 
@@ -16,7 +17,7 @@ public class TestForVectorOnRealField extends TestCase {
   
   public static RealField getRandomRealField() {
     Random random = new Random();    
-    return new RealField((double)random.nextInt(10000));   
+    return new RealField(random.nextDouble() * 0xFFFFFF);   
   }
   
   public static Vector<Double> getRandomVector(int dimension) {
@@ -31,19 +32,20 @@ public class TestForVectorOnRealField extends TestCase {
     assertEquals(randomVector, randomVector);
   }
   
-  public void testCommutativity() throws MissmatchDimensionException, OutOfComponentIndexException {
+  public void testCommutativity() throws MissmatchDimensionException, OutOfComponentIndexException, InvalidValueException {
     Vector<Double> one = getRandomVector(_defaultDimension);
     Vector<Double> two = getRandomVector(_defaultDimension);
     assertEquals(one.add(two), two.add(one));
   }
   
-  public void testDistributivity() throws OutOfComponentIndexException, MissmatchDimensionException {
+  public void testDistributivity() throws OutOfComponentIndexException, MissmatchDimensionException, InvalidValueException {
     Vector<Double> one = getRandomVector(_defaultDimension);
     Vector<Double> two = getRandomVector(_defaultDimension);
     RealField randomRealField = getRandomRealField();
     IVector<Double> x = one.mul(randomRealField);
     IVector<Double> y = two.mul(randomRealField);
-    assertEquals(one.add(two).mul(randomRealField),x.add(y));        
-    
+    for (int i = 0; i < _defaultDimension; ++i) {      
+      assertEquals(one.add(two).mul(randomRealField).getComponent(i).getComponent(0).doubleValue(),x.add(y).getComponent(i).getComponent(0).doubleValue(),(double)0.1);
+    }    
   }
 }

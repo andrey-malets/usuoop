@@ -1,9 +1,10 @@
 package field;
 
-import vector.OutOfComponentIndexException;
+import exceptions.InvalidValueException;
+import exceptions.OutOfComponentIndexException;
 
 public class RealField implements IField<Double> {
-  Double _elem;
+  private final Double _elem;
 
   public RealField(Double i) {
     _elem = i;
@@ -24,12 +25,12 @@ public class RealField implements IField<Double> {
     return new RealField(1 / _elem.doubleValue());
   }
 
-  public RealField add(IField<Double> rhs) throws OutOfComponentIndexException {
+  public RealField add(IField<Double> rhs) throws OutOfComponentIndexException, InvalidValueException {
     return new RealField(_elem.doubleValue()
         + rhs.getComponent(0).doubleValue());
   }
 
-  public RealField mul(IField<Double> rhs) throws OutOfComponentIndexException {
+  public RealField mul(IField<Double> rhs) throws OutOfComponentIndexException, InvalidValueException {
     return new RealField(_elem.doubleValue()
         * rhs.getComponent(0).doubleValue());
   }

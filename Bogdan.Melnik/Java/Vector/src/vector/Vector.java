@@ -2,6 +2,9 @@ package vector;
 
 import java.util.ArrayList;
 
+import exceptions.InvalidValueException;
+import exceptions.MissmatchDimensionException;
+import exceptions.OutOfComponentIndexException;
 import field.IField;
 
 
@@ -34,7 +37,7 @@ public class Vector<V> implements IVector<V> {
   }
 
   public Vector<V> add(IVector<V> rhs)
-      throws MissmatchDimensionException, OutOfComponentIndexException {
+      throws MissmatchDimensionException, OutOfComponentIndexException, InvalidValueException {
     ArrayList< IField<V> > arrayList = null;
     if (this.getDimension() != rhs.getDimension())
       throw new MissmatchDimensionException("Dimension must be equals");
@@ -45,7 +48,7 @@ public class Vector<V> implements IVector<V> {
     return new Vector<V>(_dimension, arrayList);
   }
 
-  public IField<V> scalar(IVector<V> rhs) throws MissmatchDimensionException, OutOfComponentIndexException {
+  public IField<V> scalar(IVector<V> rhs) throws MissmatchDimensionException, OutOfComponentIndexException, InvalidValueException {
         if (this.getDimension() != rhs.getDimension())
       throw new MissmatchDimensionException("Dimension must be equals");
     IField<V> sum = this.getComponent(0).mul(rhs.getComponent(0));    
@@ -55,7 +58,7 @@ public class Vector<V> implements IVector<V> {
     return sum;
   }
 
-  public IVector<V> mul(IField<V> factor) throws OutOfComponentIndexException {
+  public IVector<V> mul(IField<V> factor) throws OutOfComponentIndexException, InvalidValueException {
     ArrayList< IField<V> > arrayList = null;    
     arrayList = new ArrayList< IField<V> >();
     for (int i = 0; i < this.getDimension(); ++i) {

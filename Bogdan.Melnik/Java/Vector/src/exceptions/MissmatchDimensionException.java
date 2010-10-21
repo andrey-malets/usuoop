@@ -1,4 +1,4 @@
-package vector;
+package exceptions;
 
 public class MissmatchDimensionException extends Exception {
 
