@@ -3,7 +3,7 @@ package field;
 import exceptions.InvalidValueException;
 import exceptions.OutOfComponentIndexException;
 
-public class RealField implements IField<Double> {
+public class RealField implements IField {
   private final Double _elem;
 
   public RealField(Double i) {
@@ -25,14 +25,22 @@ public class RealField implements IField<Double> {
     return new RealField(1 / _elem.doubleValue());
   }
 
-  public RealField add(IField<Double> rhs) throws OutOfComponentIndexException, InvalidValueException {
+  public RealField add(IField rhs) throws OutOfComponentIndexException, InvalidValueException {
+    if (! (rhs instanceof RealField) ) {
+      throw new InvalidValueException("Argument must be RealField type.");      
+    }
+    RealField valid = (RealField) rhs;
     return new RealField(_elem.doubleValue()
-        + rhs.getComponent(0).doubleValue());
+        + valid.getComponent(0).doubleValue());
   }
 
-  public RealField mul(IField<Double> rhs) throws OutOfComponentIndexException, InvalidValueException {
+  public RealField mul(IField rhs) throws OutOfComponentIndexException, InvalidValueException {
+    if (! (rhs instanceof RealField) ) {
+      throw new InvalidValueException("Argument must be RealField type.");      
+    }
+    RealField valid = (RealField) rhs;
     return new RealField(_elem.doubleValue()
-        * rhs.getComponent(0).doubleValue());
+        * valid.getComponent(0).doubleValue());
   }
   
   public String toString() {
@@ -44,8 +52,8 @@ public class RealField implements IField<Double> {
       return true;
     if (rhs instanceof RealField) {
       RealField realRhs = (RealField) rhs;
-      try {
-        return (realRhs.getComponent(0).doubleValue() == this.getComponent(0).doubleValue());
+      try {        
+        return ( (realRhs.getComponent(0).doubleValue() - this.getComponent(0).doubleValue()) < 0.01);
       } catch (OutOfComponentIndexException e) {
         return false;
       }

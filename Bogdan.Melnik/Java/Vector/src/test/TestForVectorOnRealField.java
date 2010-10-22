@@ -8,7 +8,6 @@ import exceptions.MissmatchDimensionException;
 import exceptions.OutOfComponentIndexException;
 import field.IField;
 import field.RealField;
-import vector.IVector;
 import vector.Vector;
 import junit.framework.TestCase;
 
@@ -20,32 +19,32 @@ public class TestForVectorOnRealField extends TestCase {
     return new RealField(random.nextDouble() * 0xFFFFFF);   
   }
   
-  public static Vector<Double> getRandomVector(int dimension) {
-    ArrayList<IField<Double>> arrayList = new ArrayList<IField<Double>>();    
+  public static Vector getRandomVector(int dimension) {
+    ArrayList<IField> arrayList = new ArrayList<IField>();    
     for (int i = 0;i < dimension; ++i)
       arrayList.add( getRandomRealField() );
-    return new Vector<Double>(dimension,arrayList);    
+    return new Vector(dimension,arrayList);    
   }
   
   public void testSelfEquals() {
-    Vector<Double> randomVector = getRandomVector(_defaultDimension);
+    Vector randomVector = getRandomVector(_defaultDimension);
     assertEquals(randomVector, randomVector);
   }
   
   public void testCommutativity() throws MissmatchDimensionException, OutOfComponentIndexException, InvalidValueException {
-    Vector<Double> one = getRandomVector(_defaultDimension);
-    Vector<Double> two = getRandomVector(_defaultDimension);
+    Vector one = getRandomVector(_defaultDimension);
+    Vector two = getRandomVector(_defaultDimension);
     assertEquals(one.add(two), two.add(one));
   }
   
   public void testDistributivity() throws OutOfComponentIndexException, MissmatchDimensionException, InvalidValueException {
-    Vector<Double> one = getRandomVector(_defaultDimension);
-    Vector<Double> two = getRandomVector(_defaultDimension);
+    Vector one = getRandomVector(_defaultDimension);
+    Vector two = getRandomVector(_defaultDimension);
     RealField randomRealField = getRandomRealField();
-    IVector<Double> x = one.mul(randomRealField);
-    IVector<Double> y = two.mul(randomRealField);
+    Vector x = one.mul(randomRealField);
+    Vector y = two.mul(randomRealField);
     for (int i = 0; i < _defaultDimension; ++i) {      
-      assertEquals(one.add(two).mul(randomRealField).getComponent(i).getComponent(0).doubleValue(),x.add(y).getComponent(i).getComponent(0).doubleValue(),(double)0.1);
+      assertEquals(one.add(two).mul(randomRealField),x.add(y));
     }    
   }
 }

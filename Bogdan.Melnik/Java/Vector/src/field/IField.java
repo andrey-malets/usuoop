@@ -3,14 +3,12 @@ package field;
 import exceptions.InvalidValueException;
 import exceptions.OutOfComponentIndexException;
 
-public interface IField<K> {
-  public K getComponent(int i) throws OutOfComponentIndexException, InvalidValueException;
+public interface IField {
+  public IField reverseForAdd() throws InvalidValueException;
 
-  public IField<K> reverseForAdd() throws InvalidValueException;
+  public IField reverseForMul() throws ArithmeticException, InvalidValueException;
 
-  public IField<K> reverseForMul() throws ArithmeticException, InvalidValueException;
+  public IField add(IField rhs) throws OutOfComponentIndexException, InvalidValueException;
 
-  public IField<K> add(IField<K> rhs) throws OutOfComponentIndexException, InvalidValueException;
-
-  public IField<K> mul(IField<K> rhs) throws OutOfComponentIndexException, InvalidValueException;
+  public IField mul(IField rhs) throws OutOfComponentIndexException, InvalidValueException;
 }

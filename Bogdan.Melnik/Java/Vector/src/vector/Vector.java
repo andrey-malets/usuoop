@@ -8,27 +8,27 @@ import exceptions.OutOfComponentIndexException;
 import field.IField;
 
 
-public class Vector<V> implements IVector<V> {
-  private final ArrayList< IField<V> > _components;
+public class Vector implements IVector<IField> {
+  private final ArrayList< IField > _components;
   private final int _dimension;
 
-  public Vector(int dimension, Iterable< IField<V> > init) {
-    _components = new ArrayList< IField<V> >();
+  public Vector(int dimension, Iterable< IField > init) {
+    _components = new ArrayList< IField >();
     _dimension = dimension;
-    for (IField<V> k : init) {
+    for (IField k : init) {
       _components.add(k);
     }
   }
 
-  public Vector(int dimension, IField<V>[] init) {
-    _components = new ArrayList< IField<V> >();
+  public Vector(int dimension, IField[] init) {
+    _components = new ArrayList< IField >();
     _dimension = dimension;
-    for (IField<V> k : init) {
+    for (IField k : init) {
       _components.add(k);
     }
   }
 
-  public IField<V> getComponent(int i) {
+  public IField getComponent(int i) {
     return _components.get(i);
   }
 
@@ -36,58 +36,58 @@ public class Vector<V> implements IVector<V> {
     return _dimension;
   }
 
-  public Vector<V> add(IVector<V> rhs)
+  public Vector add(IVector<IField> rhs)
       throws MissmatchDimensionException, OutOfComponentIndexException, InvalidValueException {
-    ArrayList< IField<V> > arrayList = null;
+    ArrayList< IField > arrayList = null;
     if (this.getDimension() != rhs.getDimension())
       throw new MissmatchDimensionException("Dimension must be equals");
-    arrayList = new ArrayList< IField<V> >();
+    arrayList = new ArrayList< IField >();
     for (int i = 0; i < this.getDimension(); ++i) {
       arrayList.add(this.getComponent(i).add(rhs.getComponent(i)));
     }
-    return new Vector<V>(_dimension, arrayList);
+    return new Vector(_dimension, arrayList);
   }
 
-  public IField<V> scalar(IVector<V> rhs) throws MissmatchDimensionException, OutOfComponentIndexException, InvalidValueException {
+  public IField scalar(IVector<IField> rhs) throws MissmatchDimensionException, OutOfComponentIndexException, InvalidValueException {
         if (this.getDimension() != rhs.getDimension())
       throw new MissmatchDimensionException("Dimension must be equals");
-    IField<V> sum = this.getComponent(0).mul(rhs.getComponent(0));    
+    IField sum = this.getComponent(0).mul(rhs.getComponent(0));    
     for (int i = 1; i < this.getDimension(); ++i) {
       sum = sum.add(this.getComponent(i).mul(rhs.getComponent(i)));      
     }
     return sum;
   }
 
-  public IVector<V> mul(IField<V> factor) throws OutOfComponentIndexException, InvalidValueException {
-    ArrayList< IField<V> > arrayList = null;    
-    arrayList = new ArrayList< IField<V> >();
+  public Vector mul(IField factor) throws OutOfComponentIndexException, InvalidValueException {
+    ArrayList< IField > arrayList = null;    
+    arrayList = new ArrayList< IField >();
     for (int i = 0; i < this.getDimension(); ++i) {
       arrayList.add(this.getComponent(i).mul(factor));
     }
-    return new Vector<V>(_dimension, arrayList);
+    return new Vector(_dimension, arrayList);
   }
 
-  public IVector<V> sub(IVector<V> rhs) {
+  public Vector sub(IVector<IField> rhs) {
     
     return null;
   }
   
   public String toString() {
     StringBuffer buffer = new StringBuffer("<");
-    for (IField<V> k : _components) {
+    for (IField k : _components) {
       buffer.append(" " + k.toString() + " ");
     }
     buffer.append(">");
     return buffer.toString();
   }
   
-  public IField<V> getLength() {   
+  public IField getLength() {   
     return null;
   } 
   
   public boolean equals(Object rhs) {
-    if (rhs instanceof Vector<?>) {
-      Vector<V> vector = (Vector<V>) rhs;
+    if (rhs instanceof Vector) {
+      Vector vector = (Vector) rhs;
       if (vector.getDimension() != this.getDimension())
         return false;
       for (int i = 0; i < this.getDimension(); ++i)
@@ -96,5 +96,6 @@ public class Vector<V> implements IVector<V> {
     }
     return true;
   }
+  
 }
 

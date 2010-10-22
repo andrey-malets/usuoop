@@ -3,7 +3,7 @@ package field;
 import exceptions.InvalidValueException;
 import exceptions.OutOfComponentIndexException;
 
-public class BinaryField implements IField<Integer> {
+public class BinaryField implements IField {
   private final Integer _elem;
   
   public BinaryField(Integer i) throws InvalidValueException  {
@@ -19,28 +19,36 @@ public class BinaryField implements IField<Integer> {
     return _elem;    
   }
 
-  public IField<Integer> reverseForAdd() throws InvalidValueException {
+  public BinaryField reverseForAdd() throws InvalidValueException {
     return new BinaryField(_elem);
   }
 
-  public IField<Integer> reverseForMul() throws ArithmeticException, InvalidValueException {
+  public BinaryField reverseForMul() throws ArithmeticException, InvalidValueException {
     if (_elem == 0) {
       throw new ArithmeticException("Division by zero");
     }
     return new BinaryField(1);
   }
 
-  public IField<Integer> add(IField<Integer> rhs)
-      throws OutOfComponentIndexException, InvalidValueException {    
-    return new BinaryField((_elem.intValue() + rhs.getComponent(0).intValue()) % 2);
+  public IField add(IField rhs)  
+      throws OutOfComponentIndexException, InvalidValueException {
+    if (! (rhs instanceof BinaryField) ) {
+      throw new InvalidValueException("Argument must be BinaryField type.");      
+    }
+    BinaryField valid = (BinaryField) rhs;
+    return new BinaryField((_elem.intValue() + valid.getComponent(0).intValue()) % 2);
   }
 
-  public IField<Integer> mul(IField<Integer> rhs)
+  public IField mul(IField rhs)
       throws OutOfComponentIndexException, InvalidValueException {
-    return new BinaryField(_elem.intValue() * rhs.getComponent(0).intValue());    
+    if (! (rhs instanceof BinaryField) ) {
+      throw new InvalidValueException("Argument must be BinaryField type.");      
+    }
+    BinaryField valid = (BinaryField) rhs;
+    return new BinaryField(_elem.intValue() * valid.getComponent(0).intValue());    
   }  
   
   public String toString() {
     return _elem.toString();
-  } 
+  }
 }
