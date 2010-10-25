@@ -13,4 +13,6 @@ public interface MyField<K> {
 	
 	public MyField<K> negativeNumb() throws MyException;
 
+	public double divide(double d) throws MyException;
+
 }

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import exceptions.MyException;
 import fieldsInterfaces.MyField;
 
-public class Vector3D<K> implements Vector<K> {
+public class Vector2D<K> implements Vector<K> {
 	private final int dimension;
 	private ArrayList<MyField<K>> comp;
 
-	public Vector3D(MyField<K>[] it) throws MyException {
+	public Vector2D(MyField<K>[] it) throws MyException {
 		if (it.length == 0) {
 			throw new MyException("The dimension should be more than zero");
 		}
@@ -20,7 +20,7 @@ public class Vector3D<K> implements Vector<K> {
 		this.dimension = this.comp.size();
 	}
 
-	public Vector3D(ArrayList<MyField<K>> it) throws MyException {
+	public Vector2D(ArrayList<MyField<K>> it) throws MyException {
 		if (it.size() == 0) {
 			throw new MyException("The dimension should be more than zero");
 		}
@@ -39,7 +39,7 @@ public class Vector3D<K> implements Vector<K> {
 	}
 
 	/**
-	 * Get component of vector
+	 * get component of vector
 	 */
 	public MyField<K> getComponent(int i) {
 		return this.comp.get(i);
@@ -75,18 +75,18 @@ public class Vector3D<K> implements Vector<K> {
 	/**
 	 * Multiply by value
 	 */
-	public Vector3D<K> multiply(MyField<K> factor) throws MyException {
+	public Vector2D<K> multiply(MyField<K> factor) throws MyException {
 		ArrayList<MyField<K>> list = new ArrayList<MyField<K>>();
 		for (int i = 0; i < this.dimension; i++) {
 			list.add(i, this.comp.get(i).mul(factor));
 		}
-		return new Vector3D<K>(list);
+		return new Vector2D<K>(list);
 	}
 
 	/**
-	 * Sum of vectors
+	 * Get sum of vectors
 	 */
-	public Vector3D<K> add(Vector<K> v) throws MyException {
+	public Vector2D<K> add(Vector<K> v) throws MyException {
 		if (this.dimension != v.dimension()) {
 			throw new MyException("Dimensions should be equal");
 		}
@@ -94,18 +94,18 @@ public class Vector3D<K> implements Vector<K> {
 		for (int i = 0; i < this.dimension; i++) {
 			list.add(i, this.comp.get(i).add(v.getComponent(i)));
 		}
-		return new Vector3D<K>(list);
+		return new Vector2D<K>(list);
 	}
 
 	/**
-	 * Subtraction of vectors
+	 * Get subtraction of values
 	 */
-	public Vector3D<K> sub(Vector<K> v) throws MyException {
+	public Vector2D<K> sub(Vector<K> v) throws MyException {
 		return this.add(v.getNegVec());
 	}
 
 	/**
-	 * Get vector to string
+	 * Get vector parameters to string
 	 */
 	public String getVecToString() {
 		StringBuffer a = new StringBuffer();
@@ -123,11 +123,11 @@ public class Vector3D<K> implements Vector<K> {
 	/**
 	 * Get vector with negative components
 	 */
-	public Vector3D<K> getNegVec() throws MyException {
+	public Vector2D<K> getNegVec() throws MyException {
 		ArrayList<MyField<K>> list = new ArrayList<MyField<K>>();
 		for (int i = 0; i < this.dimension; i++) {
 			list.add(this.comp.get(i).negativeNumb());
 		}
-		return new Vector3D<K>(list);
+		return new Vector2D<K>(list);
 	}
 }

@@ -21,42 +21,63 @@ public class RealNumbField implements MyField<Double> {
 	public RealNumbField() {
 		this.numb = 0.;
 	}
-
+/**
+ * Sum of values
+ */
 	public RealNumbField add(MyField<Double> var) {
 		return new RealNumbField(this.numb.doubleValue()
 				+ var.getElem().doubleValue());
 	}
-
+/**
+ * Get value
+ */
 	public Double getElem() {
 		return new Double(numb.doubleValue());
 	}
-
+/**
+ * Subtraction of values 
+ * @param var
+ * @return
+ */
 	public RealNumbField sub(MyField<Double> var) {
 		return new RealNumbField(this.numb.doubleValue()
 				- var.getElem().doubleValue());
 	}
-
+/**
+ * Multiply values
+ */
 	public RealNumbField mul(MyField<Double> var) {
 		return new RealNumbField(this.numb.doubleValue()
 				* var.getElem().doubleValue());
 	}
-
-	public MyField<Double> oppositeNumb() throws MyException {
+/**
+ * Get opposite value
+ */
+	public MyField<Double> oppositeNumb() {
 		if (this.numb == 0) {
-			throw new MyException("Ilegal division by zero");
+			return new RealNumbField(0.);
 		}
 		return new RealNumbField(1/this.numb.doubleValue());
 	}
-
+/**
+ * Get negative value
+ */
 	public MyField<Double> negativeNumb() {
 		return new RealNumbField(-this.numb.doubleValue());
 	}
 	public String toString(){
 			StringBuffer a = new StringBuffer();
-			//a.append('<');
 			a.append(this.numb);
-			//a.append('>');
 			return a.toString();
+	}
+/**
+ * Divizion by double value
+ */
+	public double divide(double d) throws MyException {
+		if (d==0.){
+			return 0.;
+		}
+		return this.numb/d;
 	}
 
 }
