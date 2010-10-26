@@ -5,7 +5,6 @@ import java.util.Random;
 
 import exceptions.InvalidValueException;
 import exceptions.MissmatchDimensionException;
-import exceptions.OutOfComponentIndexException;
 import field.IField;
 import field.RealField;
 import vector.Vector;
@@ -31,13 +30,13 @@ public class TestForVectorOnRealField extends TestCase {
     assertEquals(randomVector, randomVector);
   }
   
-  public void testCommutativity() throws MissmatchDimensionException, OutOfComponentIndexException, InvalidValueException {
+  public void testCommutativity() throws MissmatchDimensionException, InvalidValueException {
     Vector one = getRandomVector(_defaultDimension);
     Vector two = getRandomVector(_defaultDimension);
     assertEquals(one.add(two), two.add(one));
   }
   
-  public void testDistributivity() throws OutOfComponentIndexException, MissmatchDimensionException, InvalidValueException {
+  public void testDistributivity() throws MissmatchDimensionException, InvalidValueException {
     Vector one = getRandomVector(_defaultDimension);
     Vector two = getRandomVector(_defaultDimension);
     RealField randomRealField = getRandomRealField();

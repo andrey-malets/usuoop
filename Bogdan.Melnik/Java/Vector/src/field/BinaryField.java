@@ -1,10 +1,9 @@
 package field;
 
 import exceptions.InvalidValueException;
-import exceptions.OutOfComponentIndexException;
 
 public class BinaryField implements IField {
-  private final Integer _elem;
+  private final int _elem;
   
   public BinaryField(Integer i) throws InvalidValueException  {
     if (i != 1 && i != 0)
@@ -12,18 +11,15 @@ public class BinaryField implements IField {
     _elem = i;
   }
   
-  public Integer getComponent(int i) throws OutOfComponentIndexException {
-    if (i != 0) {
-      throw new OutOfComponentIndexException("Index must be zero");
-    }
+  private int getValue() {    
     return _elem;    
   }
 
-  public BinaryField reverseForAdd() throws InvalidValueException {
+  public IField reverseForAdd() throws InvalidValueException {
     return new BinaryField(_elem);
   }
 
-  public BinaryField reverseForMul() throws ArithmeticException, InvalidValueException {
+  public IField reverseForMul() throws ArithmeticException, InvalidValueException {
     if (_elem == 0) {
       throw new ArithmeticException("Division by zero");
     }
@@ -31,24 +27,48 @@ public class BinaryField implements IField {
   }
 
   public IField add(IField rhs)  
-      throws OutOfComponentIndexException, InvalidValueException {
+      throws InvalidValueException {
     if (! (rhs instanceof BinaryField) ) {
       throw new InvalidValueException("Argument must be BinaryField type.");      
     }
     BinaryField valid = (BinaryField) rhs;
-    return new BinaryField((_elem.intValue() + valid.getComponent(0).intValue()) % 2);
+    return new BinaryField((_elem + valid.getValue()) % 2);
   }
 
   public IField mul(IField rhs)
-      throws OutOfComponentIndexException, InvalidValueException {
+      throws InvalidValueException {
     if (! (rhs instanceof BinaryField) ) {
       throw new InvalidValueException("Argument must be BinaryField type.");      
     }
     BinaryField valid = (BinaryField) rhs;
-    return new BinaryField(_elem.intValue() * valid.getComponent(0).intValue());    
+    return new BinaryField(_elem * valid.getValue());    
   }  
   
   public String toString() {
-    return _elem.toString();
+    return new Integer(_elem).toString();
+  }
+
+  public IField getZero() {    
+    try {
+      return new BinaryField(1);
+    } catch (InvalidValueException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
+  }
+  
+  public IField getUnit() {   
+    try {
+      return new BinaryField(0);
+    } catch (InvalidValueException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public double doubleValue() {
+    return _elem;
   }
 }

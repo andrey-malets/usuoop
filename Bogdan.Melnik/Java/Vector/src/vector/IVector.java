@@ -2,7 +2,6 @@ package vector;
 
 import exceptions.InvalidValueException;
 import exceptions.MissmatchDimensionException;
-import exceptions.OutOfComponentIndexException;
 import field.IField;
 
 public interface IVector<V extends IField> {
@@ -11,12 +10,11 @@ public interface IVector<V extends IField> {
   public int getDimension();
 
   public IVector<V> add(IVector<V> rhs)
-      throws MissmatchDimensionException, OutOfComponentIndexException, InvalidValueException;
+      throws MissmatchDimensionException, InvalidValueException;
 
-  public V scalar(IVector<V> rhs) throws MissmatchDimensionException,
-      OutOfComponentIndexException, InvalidValueException;
+  public V scalar(IVector<V> rhs) throws MissmatchDimensionException, InvalidValueException;
   
-  public V getLength();
-  public IVector<V> mul(V factor) throws OutOfComponentIndexException, InvalidValueException;  
-  public IVector<V> sub(IVector<V> rhs) throws InvalidValueException; 
+  public double getLength() throws InvalidValueException;
+  public IVector<V> mul(V factor) throws InvalidValueException;  
+  public IVector<V> sub(IVector<V> rhs) throws InvalidValueException, MissmatchDimensionException; 
 }

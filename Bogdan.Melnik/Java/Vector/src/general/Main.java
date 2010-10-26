@@ -1,15 +1,14 @@
 package general;
 
+import segment.Segment;
 import vector.Vector;
 import exceptions.InvalidValueException;
 import exceptions.MissmatchDimensionException;
-import exceptions.OutOfComponentIndexException;
 import field.RealField;
 
 public class Main {
 
-  public static void main(String[] args) throws OutOfComponentIndexException,
-      MissmatchDimensionException, InvalidValueException {
+  public static void main(String[] args) throws MissmatchDimensionException, InvalidValueException {
     /*
     BinaryField one[] = new BinaryField[] { new BinaryField(1), new BinaryField(0) };
     BinaryField two[] = new BinaryField[] { new BinaryField(1), new BinaryField(1) };
@@ -21,16 +20,31 @@ public class Main {
     System.out.println(firstVector.mul(realField));
     System.out.println(secondVector.mul(realField));
     System.out.println(firstVector.add(secondVector));
-    */    
-    RealField one[] = new RealField[] { new RealField(3.), new RealField(2.) };
-    RealField two[] = new RealField[] { new RealField(1.), new RealField(2.) };
+    */   
+    RealField one[] = new RealField[] { new RealField(0.), new RealField(0.) };
+    RealField two[] = new RealField[] { new RealField(4.), new RealField(3.) };
     Vector firstVector = new Vector(
         2, one);
     Vector secondVector = new Vector(
-        2, two);
-    RealField realField = new RealField(2.);
+        2, two);    
+    Segment segment = new Segment(firstVector,secondVector);
+    System.out.println(segment.getLength());
+    /*
     System.out.println(firstVector.mul(realField));
     System.out.println(secondVector.mul(realField));    
     System.out.println(firstVector.mul(realField).add(secondVector.mul(realField)));
+    System.out.println(firstVector.getLength());
+    */
+    /*
+    ComplexField one = new ComplexField(5.,1.);
+    IField two = one.reverseForMul();
+    System.out.println(two);
+    System.out.println(one.mul(two));
+    */
+    /*
+    IField one = new RealField(4.);
+    IField two = one.reverseForAdd();
+    System.out.println(one.add(two));
+    */
   }
 }
