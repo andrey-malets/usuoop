@@ -23,12 +23,16 @@ public class Segment {
     return new Vector(_end);
   }
 
-  public double getLength() throws InvalidValueException, MissmatchDimensionException {
-    return _start.sub(_end).getLength();    
+  public double getLength() throws InvalidValueException, MissmatchDimensionException {    
+    return _end.sub(_start).getLength();
   }
 
-  public double distanceTo(Vector point) {
-    return 0;
-    
+  public double distanceTo(Vector point) throws MissmatchDimensionException, InvalidValueException {
+    Vector a = _start.sub(point);
+    Vector b = _end.sub(point);
+    double cos = ( a.scalar(b).doubleValue() / ( a.getLength() * b.getLength() ) );
+    double sin = Math.sin(Math.acos(cos));
+    double S = a.getLength() * b.getLength() * sin;    
+    return S/this.getLength();
   }
 }

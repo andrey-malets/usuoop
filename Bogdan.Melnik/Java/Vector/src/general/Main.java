@@ -21,14 +21,17 @@ public class Main {
     System.out.println(secondVector.mul(realField));
     System.out.println(firstVector.add(secondVector));
     */   
-    RealField one[] = new RealField[] { new RealField(0.), new RealField(0.) };
-    RealField two[] = new RealField[] { new RealField(4.), new RealField(3.) };
+    RealField one[] = new RealField[] { new RealField(-1.), new RealField(0.) };
+    RealField two[] = new RealField[] { new RealField(1.), new RealField(0.) };
+    RealField three[] = new RealField[] { new RealField(0.), new RealField(0.00001) };
     Vector firstVector = new Vector(
         2, one);
     Vector secondVector = new Vector(
         2, two);    
+    Vector thirdVector = new Vector(
+        2, three);
     Segment segment = new Segment(firstVector,secondVector);
-    System.out.println(segment.getLength());
+    System.out.println(segment.distanceTo(thirdVector));
     /*
     System.out.println(firstVector.mul(realField));
     System.out.println(secondVector.mul(realField));    

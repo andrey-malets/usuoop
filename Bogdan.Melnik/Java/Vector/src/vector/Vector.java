@@ -80,7 +80,7 @@ public class Vector implements IVector<IField> {
       throw new MissmatchDimensionException("Dimension must be equals");
     arrayList = new ArrayList< IField >();
     for (int i = 0; i < this.getDimension(); ++i) {
-      arrayList.add(this.getComponent(i).add(rhs.getComponent(i)));
+      arrayList.add(this.getComponent(i).add(rhs.getComponent(i).reverseForAdd()));
     }
     return new Vector(_dimension, arrayList);
   }
