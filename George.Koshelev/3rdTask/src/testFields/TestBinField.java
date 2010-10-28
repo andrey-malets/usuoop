@@ -17,6 +17,6 @@ public void testAdd1() throws MyException{
 public void testMul() throws MyException {
 	BinField a = new BinField(0);
 	BinField b = new BinField(1);
-	assertEquals(a.add(b).getElem(), b.add(a).getElem());
+	assertEquals(a.mul(b).getElem(), b.add(a).getElem());
 }
 }
