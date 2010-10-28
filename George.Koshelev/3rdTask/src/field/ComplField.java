@@ -2,7 +2,7 @@ package field;
 
 import fieldsInterfaces.MyFieldCompl;
 
-public class ComplField implements MyFieldCompl<Double, Double> {
+public class ComplField implements MyFieldCompl<Double> {
 	private Double re;
 	private Double im;
 
@@ -39,13 +39,13 @@ public class ComplField implements MyFieldCompl<Double, Double> {
 		return new Double(im);
 	}
 
-	public ComplField add(MyFieldCompl<Double, Double> var) {
+	public ComplField add(MyFieldCompl<Double> var) {
 		return new ComplField(
 				(var.getReElem().doubleValue() + this.re.doubleValue()), (var
 						.getImElem().doubleValue() + this.im.doubleValue()));
 	}
 
-	public ComplField mul(MyFieldCompl<Double, Double> var) {
+	public ComplField mul(MyFieldCompl<Double> var) {
 		return new ComplField((this.re.doubleValue()
 				* var.getReElem().doubleValue() + this.im.doubleValue()
 				* var.getImElem().doubleValue()), (this.im.doubleValue()

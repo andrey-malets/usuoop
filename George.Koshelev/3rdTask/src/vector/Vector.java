@@ -19,6 +19,6 @@ public interface Vector<K> {
 	public Vector<K> sub(Vector<K> v) throws MyException;
 
 	public String getVecToString();
-	
+
 	public Vector<K> getNegVec() throws MyException;
 }

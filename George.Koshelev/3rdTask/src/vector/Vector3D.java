@@ -6,29 +6,27 @@ import exceptions.MyException;
 import fieldsInterfaces.MyField;
 
 public class Vector3D<K> implements Vector<K> {
-	private final int dimension;
+	private final int dimension = 3;
 	private ArrayList<MyField<K>> comp;
 
 	public Vector3D(MyField<K>[] it) throws MyException {
-		if (it.length == 0) {
-			throw new MyException("The dimension should be more than zero");
+		if (it.length == 0||it.length!=this.dimension) {
+			throw new MyException("Not correct dimension");
 		}
 		this.comp = new ArrayList<MyField<K>>();
 		for (MyField<K> j : it) {
 			this.comp.add(j);
 		}
-		this.dimension = this.comp.size();
 	}
 
 	public Vector3D(ArrayList<MyField<K>> it) throws MyException {
-		if (it.size() == 0) {
-			throw new MyException("The dimension should be more than zero");
+		if (it.size() == 0||it.size()!=this.dimension) {
+			throw new MyException("Not correct dimension");
 		}
 		this.comp = new ArrayList<MyField<K>>();
 		for (MyField<K> j : it) {
 			this.comp.add(j);
 		}
-		this.dimension = this.comp.size();
 	}
 
 	/**

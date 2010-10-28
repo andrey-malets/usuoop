@@ -69,7 +69,17 @@ public class BinField implements MyField<Integer> {
 		return new BinField(-this.elem.intValue());
 	}
 
-	public double divide(double d) throws MyException {
-		throw new MyException("No such method");
+	public Double divide(Double d) throws MyException {
+		if(checkOne(d.intValue()) || checkZero(d.intValue())){
+			if (checkZero(d.intValue())){
+				throw new MyException("Division by zero");
+			}
+			else{ 
+				return this.elem/d;
+			}
+		}
+		else{
+			throw new MyException("Parametr  should be 0 or 1");
+		}
 	}
 }

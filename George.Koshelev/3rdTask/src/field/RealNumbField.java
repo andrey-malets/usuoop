@@ -73,7 +73,7 @@ public class RealNumbField implements MyField<Double> {
 /**
  * Divizion by double value
  */
-	public double divide(double d) throws MyException {
+	public Double divide(Double d) throws MyException {
 		if (d==0.){
 			return 0.;
 		}
