@@ -99,7 +99,7 @@ public class Vector implements IVector<IField> {
     for (int i = 0; i < this.getDimension(); ++i) {
       sum = sum.add(this.getComponent(i).mul(this.getComponent(i)));      
     }
-    return Math.sqrt(sum.doubleValue());
+    return Math.sqrt(sum.getValue());
   } 
   
   public boolean equals(Object rhs) {

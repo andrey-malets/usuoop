@@ -68,7 +68,7 @@ public class ComplexField implements IField {
     return false;
   }
 
-  public double doubleValue() {
+  public double getValue() {
     return _re;
   }
 }

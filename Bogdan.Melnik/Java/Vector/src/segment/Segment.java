@@ -30,7 +30,7 @@ public class Segment {
   public double distanceTo(Vector point) throws MissmatchDimensionException, InvalidValueException {
     Vector a = _start.sub(point);
     Vector b = _end.sub(point);
-    double cos = ( a.scalar(b).doubleValue() / ( a.getLength() * b.getLength() ) );
+    double cos = ( a.scalar(b).getValue() / ( a.getLength() * b.getLength() ) );
     double sin = Math.sin(Math.acos(cos));
     double S = a.getLength() * b.getLength() * sin;    
     return S/this.getLength();

@@ -9,7 +9,7 @@ public class RealField implements IField {
     _elem = i;
   }
 
-  private double getValue() {    
+  public double getValue() {    
     return _elem;
   }
 
@@ -46,7 +46,7 @@ public class RealField implements IField {
       return true;
     if (rhs instanceof RealField) {
       RealField realRhs = (RealField) rhs;              
-      return ( (realRhs.getValue() - this.getValue()) < 0.1);
+      return ( (realRhs.getValue() - this.getValue()) < 0.2);
     }
     return true;
   }
@@ -57,9 +57,5 @@ public class RealField implements IField {
 
   public IField getUnit() {
     return new RealField(1.);
-  }
-
-  public double doubleValue() {
-    return _elem;
-  }
+  }  
 }

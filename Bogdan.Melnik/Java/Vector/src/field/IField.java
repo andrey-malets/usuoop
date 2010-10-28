@@ -4,7 +4,7 @@ import exceptions.InvalidValueException;
 
 public interface IField {
   
-  public double doubleValue();
+  public double getValue();
   public IField getZero();
   public IField getUnit();
   public IField reverseForAdd() throws InvalidValueException;

@@ -5,13 +5,17 @@ import exceptions.InvalidValueException;
 public class BinaryField implements IField {
   private final int _elem;
   
+  private int getElem() {
+    return _elem;
+  }
+  
   public BinaryField(Integer i) throws InvalidValueException  {
     if (i != 1 && i != 0)
       throw new InvalidValueException("Value must be 0 or 1");
     _elem = i;
   }
   
-  private int getValue() {    
+  public double getValue() {    
     return _elem;    
   }
 
@@ -32,7 +36,7 @@ public class BinaryField implements IField {
       throw new InvalidValueException("Argument must be BinaryField type.");      
     }
     BinaryField valid = (BinaryField) rhs;
-    return new BinaryField((_elem + valid.getValue()) % 2);
+    return new BinaryField((_elem + valid.getElem()) % 2);
   }
 
   public IField mul(IField rhs)
@@ -41,7 +45,7 @@ public class BinaryField implements IField {
       throw new InvalidValueException("Argument must be BinaryField type.");      
     }
     BinaryField valid = (BinaryField) rhs;
-    return new BinaryField(_elem * valid.getValue());    
+    return new BinaryField(_elem * valid.getElem());    
   }  
   
   public String toString() {
@@ -66,9 +70,15 @@ public class BinaryField implements IField {
       e.printStackTrace();
     }
     return null;
-  }
-
-  public double doubleValue() {
-    return _elem;
+  }  
+  
+  public boolean equals(Object rhs) {
+    if (this == rhs)
+      return true;
+    if (rhs instanceof BinaryField) {
+      BinaryField realRhs = (BinaryField) rhs;
+      return ( realRhs.getElem() == this.getElem() );
+    }
+    return true;
   }
 }
