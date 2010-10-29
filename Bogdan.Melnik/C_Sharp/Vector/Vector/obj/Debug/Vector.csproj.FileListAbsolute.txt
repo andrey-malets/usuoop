@@ -1,5 +1,0 @@
-C:\Users\ld\Documents\Visual Studio 2008\Projects\Vector\Vector\bin\Debug\Vector.exe
-C:\Users\ld\Documents\Visual Studio 2008\Projects\Vector\Vector\bin\Debug\Vector.pdb
-C:\Users\ld\Documents\Visual Studio 2008\Projects\Vector\Vector\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\ld\Documents\Visual Studio 2008\Projects\Vector\Vector\obj\Debug\Vector.exe
-C:\Users\ld\Documents\Visual Studio 2008\Projects\Vector\Vector\obj\Debug\Vector.pdb
