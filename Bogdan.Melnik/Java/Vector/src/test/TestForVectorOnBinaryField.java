@@ -39,11 +39,11 @@ public class TestForVectorOnBinaryField extends TestCase {
   public void testDistributivity() throws MissmatchDimensionException, InvalidValueException {
     Vector one = getRandomVector(_defaultDimension);
     Vector two = getRandomVector(_defaultDimension);
-    BinaryField randomRealField = getRandomBinaryField();
-    Vector x = one.mul(randomRealField);
-    Vector y = two.mul(randomRealField);
+    BinaryField randomBinaryField = getRandomBinaryField();
+    Vector x = one.mul(randomBinaryField);
+    Vector y = two.mul(randomBinaryField);
     for (int i = 0; i < _defaultDimension; ++i) {      
-      assertEquals(one.add(two).mul(randomRealField),x.add(y));
+      assertEquals(one.add(two).mul(randomBinaryField),x.add(y));
     }    
   }
 }
