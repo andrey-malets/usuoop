@@ -1,6 +1,9 @@
 #include <iostream>
 
+#include "A.h"
+
 int main() {
-  std::cout << "Hello,world!" << std::endl;
+  A a(1);
+  a.show();
 	return 0;
 }
