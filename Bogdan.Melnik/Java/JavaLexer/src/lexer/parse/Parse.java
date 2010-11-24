@@ -3,6 +3,7 @@ package lexer.parse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 import lexer.token.Token;
@@ -17,9 +18,33 @@ public class Parse {
   public Parse(InputStream in) throws IOException {
     readToken = new TokenReader(in);    
     look = readToken.getToken();
-    expr();
-    match(type.EOC);
+    while(true) {
+      statement();
+      match(type.EOC);      
+      this.debug_calculate();      
+      if (look == null) {
+        showNameTable();
+        System.exit(0);
+      }
+    }
   }  
+  
+  private void statement() throws IOException {
+    if (look.getType() == type.ID) {
+      emit(look);
+      match(type.ID);
+      if (look.getType() == type.EQU) {
+        Token t = new Token(look);
+        match(look.getType());
+        expr(true);
+        emit(t);
+      } else {
+        expr(false);
+      }
+    } else {
+      expr(true);
+    }    
+  }
   
   private void match(type t) throws IOException {
     if (look.getType() == t)
@@ -30,24 +55,28 @@ public class Parse {
      switch(look.getType()) {
     case OPEN_BRK:
       match(type.OPEN_BRK);
-      expr();
+      expr(true);
       match (type.CLOSE_BRK);
       break;
     case INT:
       emit(look);
       match(type.INT);
+      break;
+    case ID:
+      emit(look);
+      match(type.ID);
       break;    
     }  
   }
   
-  private void expr() throws IOException {    
-    term();
+  private void expr(boolean a) throws IOException {    
+    term(a);
     while(true)
       switch(look.getType()) {
         case MINUS: case PLUS:
           Token t = look;
           match(look.getType());
-          term();   
+          term(true);   
           emit(t);
           break;
         default:
@@ -55,8 +84,9 @@ public class Parse {
       }
     }
   
-  private void term() throws IOException {    
-    factor();
+  private void term(boolean a) throws IOException {
+    if (a)
+      factor();
     while(true)
       switch (look.getType()) {
         case MUL: case DIV:
@@ -70,59 +100,92 @@ public class Parse {
       }
   }
   private void emit(Token t) {
-    tokenTree.add(new Token(t));
-    /*
-    switch(t.getType()) {
-      case NUM:        
-        System.out.print(t.getValue());        
-        break;
-      case PLUS:
-        System.out.print('+');
-        break;
-      case MINUS:
-        System.out.print('-');
-        break;
-      case DIV:
-        System.out.print('/');
-        break;
-      case MUL:
-        System.out.print('*');
-        break;
-    }
-    */    
+    tokenTree.add(new Token(t));        
   }  
   
+  private void showNameTable() {
+    for (Integer Int : readToken.nameTable.keySet()) {
+      System.out.println(Int + " " + readToken.nameTable.get(Int));
+    }    
+  }
+  
   public void debug_calculate() {
-    Stack<Integer> stack = new Stack<Integer>();    
-    Integer a,b;
+    Stack<Token> stack = new Stack<Token>();    
+    Token a,b;
+    Integer avalue,bvalue;
     for (Token t : tokenTree) {
-      System.out.println(t.getType() + " " + t.getValue());
       switch(t.getType()) {
+        case EQU:
+          a = stack.pop();
+          b = stack.pop();
+          if (b.getType() == type.ID) {
+            readToken.nameTable.put(b.getIntegerValue(), a.getIntegerValue());
+          } else {
+            System.out.println("lvalue need!");
+          }
+          stack.push(a);
+          break;
+        case ID:
+          stack.push(new Token(t));
+          break;
         case INT:
-          stack.push(t.getValue());
+          stack.push(new Token(t));
           break;
         case PLUS:
           a = stack.pop();
-          b = stack.pop();
-          stack.push(a + b);
+          b = stack.pop();      
+          avalue = a.getIntegerValue();
+          bvalue = b.getIntegerValue();
+          if (a.getType() == type.ID) {            
+            avalue = readToken.nameTable.get(a.getIntegerValue());            
+          }
+          if (b.getType() == type.ID) {
+            bvalue = readToken.nameTable.get(b.getIntegerValue());
+          }
+          stack.push(new Token(avalue + bvalue,type.INT));
           break;
         case MINUS:
           a = stack.pop();
           b = stack.pop();
-          stack.push(a - b);
+          avalue = a.getIntegerValue();
+          bvalue = b.getIntegerValue();
+          if (a.getType() == type.ID) {
+            avalue = readToken.nameTable.get(a.getIntegerValue());
+          }
+          if (b.getType() == type.ID) {
+            bvalue = readToken.nameTable.get(b.getIntegerValue());
+          }
+          stack.push(new Token(avalue - bvalue,type.INT));
           break;
         case MUL:
           a = stack.pop();
           b = stack.pop();
-          stack.push(a * b);
+          avalue = a.getIntegerValue();
+          bvalue = b.getIntegerValue();
+          if (a.getType() == type.ID) {
+            avalue = readToken.nameTable.get(a.getIntegerValue());
+          }
+          if (b.getType() == type.ID) {
+            bvalue = readToken.nameTable.get(b.getIntegerValue());
+          }
+          stack.push(new Token(avalue * bvalue,type.INT));
           break;
         case DIV:
           a = stack.pop();
-          b = stack.pop();
-          stack.push(a / b);
+          b = stack.pop();          
+          avalue = a.getIntegerValue();
+          bvalue = b.getIntegerValue();
+          if (a.getType() == type.ID) {
+            avalue = readToken.nameTable.get(a.getIntegerValue());
+          }
+          if (b.getType() == type.ID) {
+            bvalue = readToken.nameTable.get(b.getIntegerValue());
+          }
+          stack.push(new Token(bvalue / avalue,type.INT));
           break;
       }
-    }   
-    System.out.println(stack.pop());
+    }    
+    System.out.println(" => " + stack.pop().getIntegerValue());    
+    tokenTree.clear();
   }  
 }

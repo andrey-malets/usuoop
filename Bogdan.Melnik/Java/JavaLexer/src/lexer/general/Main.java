@@ -19,7 +19,6 @@ public class Main {
   }
 
   public void run() throws IOException {
-    Parse parse = new Parse(System.in);    
-    parse.debug_calculate();
+    new Parse(System.in);    
   }
 }

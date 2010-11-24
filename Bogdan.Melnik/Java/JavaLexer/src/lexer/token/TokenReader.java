@@ -2,6 +2,8 @@ package lexer.token;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 import lexer.input.ReadStream;
 
@@ -9,7 +11,8 @@ public class TokenReader {
   
     
   private ReadStream readStream;
-
+  final public TreeMap<Integer, Integer> nameTable = new TreeMap<Integer, Integer>();
+  
   public enum type {    
     ID,
     PLUS,
@@ -19,33 +22,52 @@ public class TokenReader {
     OPEN_BRK,
     CLOSE_BRK,
     EOC,
-    INT
-  } 
+    INT,
+    EQU
+  };
   
   public TokenReader(InputStream in) {
-    readStream = new ReadStream(in);
-  }
-  
-  private boolean isNum(Character c) {
+    readStream = new ReadStream(in);    
+  }  
+    
+  private boolean isSpace(Character c) {
     switch (c) {
-      case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
+      case ' ': case '\t':
         return true;
       default:
         return false;
-    }   
+    }
+  
   }
   
   public Token getToken() throws IOException {
     Character block = readStream.readChar();
-    switch (block) {
-      case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
-        StringBuffer stringBuffer = new StringBuffer("");               
-        while(isNum(block)) {         
-          stringBuffer.append(block);
-          block = readStream.readChar();          
-        }        
-        readStream.unreadChar(block);        
-        return new Token(Integer.parseInt(stringBuffer.toString()),type.INT);
+    while (isSpace(block)) {
+      block = readStream.readChar();      
+    }    
+    if (Character.isLetter(block)) {
+      StringBuffer stringBuffer = new StringBuffer("");
+      while(Character.isDigit(block) || Character.isLetter(block)) {
+        stringBuffer.append(block);
+        block = readStream.readChar();
+      }
+      readStream.unreadChar(block);
+      String value = stringBuffer.toString();
+      if (!nameTable.containsKey(value.hashCode()))
+        nameTable.put(value.hashCode(), 0);
+      return new Token(value.hashCode(),type.ID);
+    }
+    if (Character.isDigit(block)) {
+      StringBuffer stringBuffer = new StringBuffer("");               
+      while(Character.isDigit(block)) {         
+        stringBuffer.append(block);
+        block = readStream.readChar();          
+      }        
+      readStream.unreadChar(block);        
+      return new Token(Integer.parseInt(stringBuffer.toString()),type.INT);
+    }
+    switch (block) { 
+      
       case '+':
         return new Token(0,type.PLUS);
       case '-':
@@ -59,7 +81,9 @@ public class TokenReader {
       case ')':
         return new Token(0,type.CLOSE_BRK);
       case ';':
-        return new Token(0,type.EOC);                
+        return new Token(0,type.EOC);
+      case '=':
+        return new Token(0,type.EQU);    
     }
     return null;
   }
