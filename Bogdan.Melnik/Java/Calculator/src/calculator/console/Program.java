@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import calculator.AbstractValueParser;
 import calculator.Calculator;
+import calculator.datatypes.complex.ComplexValueParser;
+import calculator.datatypes.fractional.FractionalValueParser;
 import calculator.datatypes.integer.IntegerValueParser;
 import calculator.datatypes.real.RealValueParser;
 
@@ -18,9 +20,9 @@ public class Program {
 	public Program() {
 		scanner = new Scanner(System.in);
 		valueParsers = new AbstractValueParser[] { new IntegerValueParser(),
-				new RealValueParser() };
+				new RealValueParser(), new FractionalValueParser(), new ComplexValueParser() };
 		AbstractValueParser parser = inputValueParser();
-		System.out.println("Работаем с типом '" + parser.getDatatypeName()
+		System.out.println("You choose '" + parser.getDatatypeName()
 				+ "'");
 		calc = new Calculator(parser);
 	}
@@ -31,13 +33,13 @@ public class Program {
 		if (choise >= 1 && choise <= valueParsers.length)
 			return valueParsers[choise - 1];
 		else {
-			System.out.println("Неверный выбор!");
+			System.out.println("Please again!");
 			return inputValueParser();
 		}
 	}
 
 	private void showChoises() {
-		System.out.println("Вам нужно выбрать тип данных. Возможные варианты:");
+		System.out.println("Choose your destiny:");
 		for (int i = 0; i < valueParsers.length; i++)
 			System.out.println("  " + (i + 1) + ". "
 					+ valueParsers[i].getDatatypeName());
