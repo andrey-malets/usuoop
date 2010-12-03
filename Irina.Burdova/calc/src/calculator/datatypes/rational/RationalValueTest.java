@@ -1,8 +1,9 @@
 package calculator.datatypes.rational;
 
+
 import java.util.Random;
 import junit.framework.TestCase;
-
+import static calculator.datatypes.rational.RationalValue.ZERO;
 
 public class RationalValueTest extends TestCase{
 	
@@ -17,7 +18,7 @@ public class RationalValueTest extends TestCase{
 		
 	}
 	public void testcommutative(){
-		for (int i = 0; i < 5; i++){
+		for (int i = 0; i < 500; i++){
 			Random random = new Random();
 			Integer r1 = random.nextInt(MAX_INT);
 			Integer i1 = Math.abs(random.nextInt(MAX_INT));
@@ -31,7 +32,7 @@ public class RationalValueTest extends TestCase{
 		}
 	}
 	public void testassociativity(){
-		for (int i = 0; i < 5; i++){
+		for (int i = 0; i < 500; i++){
 			Random random = new Random();
 			Integer r1 = random.nextInt(MAX_INT);
 			Integer i1 = Math.abs(random.nextInt(MAX_INT));
@@ -48,7 +49,7 @@ public class RationalValueTest extends TestCase{
 		}
 	}
 	public void testnul(){
-		for (int i = 0; i < 5; i++){
+		for (int i = 0; i < 500; i++){
 			Random random = new Random();
 			Integer r1 = random.nextInt(MAX_INT);
 			Integer i1 = Math.abs(random.nextInt(MAX_INT));
@@ -56,11 +57,9 @@ public class RationalValueTest extends TestCase{
 			Integer i2 = Math.abs(random.nextInt(MAX_INT));
 			RationalValue cv1 = new RationalValue(r1, i1);
 			RationalValue cv2 = new RationalValue(r2, i2);
-			RationalValue cv2n = new RationalValue(0, 1);
-			assertEquals(cv1.sub(cv2n), cv1.nod());
-			assertEquals(cv1.mul(cv2n), cv2n.nod());
-			assertEquals(cv2.add(cv2n), cv2.nod());
-			
+			assertEquals(cv1.sub(ZERO), cv1);
+			assertEquals(cv1.mul(ZERO), ZERO);
+			assertEquals(cv2.add(ZERO), cv2);
 		}
 	}
 }

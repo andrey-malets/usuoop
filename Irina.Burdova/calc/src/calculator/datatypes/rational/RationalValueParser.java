@@ -15,7 +15,7 @@ public class RationalValueParser implements AbstractValueParser {
                 if (matcher.matches() ){
                         int n = Integer.parseInt(matcher.group(1));
                         if (n == 0)
-                        	return new RationalValue(0, 1);
+                        	return RationalValue.ZERO;
                         int d = Integer.parseInt(matcher.group(3));
                         if (d == 0)
                                 throw new ParseValueException();
