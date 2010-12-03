@@ -24,7 +24,7 @@ public class RationalValueParser implements AbstractValueParser {
                  }
   
             	else{
-                    throw new ParseValueException();
+                    throw new ParseValueException("Не подходит под regexp!");
             	}
                 
                 
