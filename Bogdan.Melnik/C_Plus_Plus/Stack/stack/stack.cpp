@@ -1,64 +1,66 @@
 
 #ifndef _STACK_STACK_
-#define _STACK_STACK_
+#define _STACK_STACK
+
+#include <iostream>
+
+template< class T >
+struct Node {
+  T elem;
+  Node<T> *next;
+};
 
 
-template< class T,class Allocator = std::allocator<T> > class stack {
-  private:
-    struct node {
-      T *elem;
-      node *next;
-    };
-    node *current;
-    Allocator *_a;
+template< class T,class A = std::allocator<T> > class Stack {
+  private:    
+    typedef Node<T> node;
+    typedef T elem_type;
+    typedef typename A::template rebind<node>::other node_alloc;  
+    typedef A elem_alloc;
+    node_alloc _na;
+    elem_alloc _ea;
+    node *top;
   public:
-    stack();
+    Stack();
+    void debug();
+    void push(elem_type i);
+    elem_type pop();
     class StackUnderflow {};
-    void push(T n);
-    T pop();
-    void debug() const;
-    virtual ~stack();
 };
 
-template<class T,class Allocator> stack<T,Allocator>::stack() {
-  current = 0;
-  _a = new Allocator();
-};
 
-template<class T,class Allocator> stack<T,Allocator>::~stack() {
-  if (_a) {
-    delete _a;
+template< class T,class A > 
+Stack<T,A>::Stack() {
+  this->top = 0;
+}
+
+template< class T,class A > 
+void Stack<T,A>::push(T i) {
+  node *t = top;
+  top = _na.allocate(1);
+  _ea.construct(&t->elem,i);
+  top->next = t;
+}
+
+template< class T,class A > 
+T Stack<T,A>::pop() { 
+  if (!top) {
+    throw StackUnderflow();
   }
-};
+  node *t = top->next;
+  elem_type elem = top->elem;
+  _ea.destroy(&top->elem);
+  _na.deallocate(top,1);
+  top = t;
+  return elem;
+}
 
-template<class T,class Allocator> void stack<T,Allocator>::push(T n) {  
-  T *t = _a->allocate(1);
-  _a->construct(t,n);  
-  node *nd = new node();
-  nd->elem = t;
-  nd->next = current;
-  current = nd;
-};
-
-template<class T,class Allocator> void stack<T,Allocator>::debug() const {  
-  node *t = current;
-  while (t != 0) {
-    std::cout << *t->elem << std::endl;
+template< class T,class A > 
+void Stack<T,A>::debug() {
+  node *t = top;
+  while (t) {
+    std::cout << t->elem << std::endl;
     t = t->next;
   }
 }
-
-template<class T,class Allocator> T stack<T,Allocator>::pop() {  
-  if (current == 0) {
-    throw StackUnderflow();
-  }
-  node *t = current;
-  current = t->next;
-  T value = *t->elem;
-  _a->destroy(t->elem);
-  _a->deallocate(t->elem,1);
-  delete t;
-  return value;
-}
-
 #endif
