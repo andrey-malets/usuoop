@@ -1,6 +1,6 @@
 CXX=g++
 SOURCE=main.cpp
-CXXFLAGS=-Wall -O2
+CXXFLAGS=-Wall -O2 -g
 OUTPUT=main
 
 all:

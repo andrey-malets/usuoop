@@ -1,6 +1,6 @@
 
 #ifndef _STACK_STACK_
-#define _STACK_STACK
+#define _STACK_STACK_
 
 #include <iostream>
 
@@ -19,11 +19,13 @@ template< class T,class A = std::allocator<T> > class Stack {
     typedef A elem_alloc;
     node_alloc _na;
     elem_alloc _ea;
-    node *top;
+    node *_top;
   public:
     Stack();
+    virtual ~Stack();
     void debug();
     void push(elem_type i);
+    bool isempty();
     elem_type pop();
     class StackUnderflow {};
 };
@@ -31,36 +33,39 @@ template< class T,class A = std::allocator<T> > class Stack {
 
 template< class T,class A > 
 Stack<T,A>::Stack() {
-  this->top = 0;
+  _top = 0;
+}
+
+template< class T,class A > 
+Stack<T,A>::~Stack() {
+  while (!isempty()) 
+    pop();
+}
+
+template< class T,class A > 
+bool Stack<T,A>::isempty() {
+  return (_top == 0);
 }
 
 template< class T,class A > 
 void Stack<T,A>::push(T i) {
-  node *t = top;
-  top = _na.allocate(1);
+  node *t = _top;
+  _top = _na.allocate(1);
   _ea.construct(&t->elem,i);
-  top->next = t;
+  _top->next = t;
 }
 
 template< class T,class A > 
 T Stack<T,A>::pop() { 
-  if (!top) {
+  if (isempty()) {
     throw StackUnderflow();
   }
-  node *t = top->next;
-  elem_type elem = top->elem;
-  _ea.destroy(&top->elem);
-  _na.deallocate(top,1);
-  top = t;
+  node *t = _top->next;
+  elem_type elem = _top->elem;
+  _ea.destroy(&_top->elem);
+  _na.deallocate(_top,1);
+  _top = t;
   return elem;
 }
 
-template< class T,class A > 
-void Stack<T,A>::debug() {
-  node *t = top;
-  while (t) {
-    std::cout << t->elem << std::endl;
-    t = t->next;
-  }
-}
 #endif
