@@ -1,0 +1,2 @@
+Hello, I'm George Koshelev and this is my
+simple smtp client.
