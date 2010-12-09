@@ -51,7 +51,7 @@ template< class T,class A >
 void Stack<T,A>::push(T i) {
   node *t = _top;
   _top = _na.allocate(1);
-  _ea.construct(&t->elem,i);
+  _ea.construct(&_top->elem,i);
   _top->next = t;
 }
 
