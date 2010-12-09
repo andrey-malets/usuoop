@@ -45,9 +45,7 @@ public void testAssotAdd() throws ParseValueException, DivisionByZeroException, 
 	}
 public void testNeitralElAdd() throws ParseValueException, DivisionByZeroException, OperationNotSupportedException{
 	String a = generingVector();
-	double neitral = 0;
-    
-	String neitralS = String.format("(%s,%s,%s)", neitral, neitral, neitral);
+	String neitralS = String.format("(%s,%s,%s)", 0, 0, 0);
 	Calculator calculator = new Calculator(new VectorValueParser());
 	
 	assertEquals(calculator.calculate(a, "+", neitralS),a);

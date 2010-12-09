@@ -50,8 +50,7 @@ public class ComplexTest extends TestCase {
 	public void testNeitralElAdd() throws ParseValueException,
 			DivisionByZeroException, OperationNotSupportedException {
 		String a = generingComplex();
-		double neitral = 0;
-		String neitralS = String.format("%s+%si", neitral, neitral);
+		String neitralS = String.format("%s+%si", 0, 0);
 		Calculator calculator = new Calculator(new ComplexValueParser());
 
 		assertEquals(calculator.calculate(a, "+", neitralS), a);
@@ -68,10 +67,8 @@ public class ComplexTest extends TestCase {
 
 	public void testNeitralElSub() throws ParseValueException,
 			DivisionByZeroException, OperationNotSupportedException {
-		String a = generingComplex();
-		int neitral = 0;
-		String neit = Integer.toString(neitral);
-		String neitralS = neit + "+" + neit + "i";
+		String a = generingComplex();		
+		String neitralS = String.format("%s+%si", 0, 0);
 		Calculator calculator = new Calculator(new ComplexValueParser());
 
 		assertEquals(calculator.calculate(a, "-", neitralS), a);
@@ -102,9 +99,7 @@ public class ComplexTest extends TestCase {
 	public void testNeitralElMul() throws ParseValueException,
 			DivisionByZeroException, OperationNotSupportedException {
 		String a = generingComplex();
-		int neitral = 1;
-		String neit = Integer.toString(neitral);
-		String neitralS = neit + "+" + 0 + "i";
+		String neitralS = String.format("%s+%si", 1, 0);
 		Calculator calculator = new Calculator(new ComplexValueParser());
 
 		assertEquals(calculator.calculate(a, "*", neitralS), a);
@@ -113,7 +108,7 @@ public class ComplexTest extends TestCase {
 	public void testNeitralElDiv() throws ParseValueException,
 			DivisionByZeroException, OperationNotSupportedException {
 		String a = generingComplex();
-		String neitralS = 1 + "+" + 0 + "i";
+		String neitralS = String.format("%s+%si", 1, 0);
 		Calculator calculator = new Calculator(new ComplexValueParser());
 
 		assertEquals(calculator.calculate(a, "/", neitralS), a);

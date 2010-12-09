@@ -19,8 +19,6 @@ public class IntegerValueTest extends TestCase{
 	public static String convertIntToString() {
 		final int range = 100; 
 	    int aInt = generingNum(range);
-	    
-	    //String aString = Integer.toString(aInt);
 	    String aString = String.format("%s", aInt);
 		return aString;
 	      
@@ -43,8 +41,7 @@ public void testAssotAdd() throws ParseValueException, DivisionByZeroException, 
 	}
 public void testNeitralElAdd() throws ParseValueException, DivisionByZeroException, OperationNotSupportedException{
 	String a = convertIntToString();
-	int neitral = 0;
-    String neitralS = Integer.toString(neitral);
+	String neitralS = String.format("%s", 0);
 	Calculator calculator = new Calculator(new IntegerValueParser());
 	
 	assertEquals(calculator.calculate(a, "+", neitralS),a);
@@ -58,8 +55,7 @@ public void testSub() throws ParseValueException, DivisionByZeroException, Opera
 }
 public void testNeitralElSub() throws ParseValueException, DivisionByZeroException, OperationNotSupportedException{
 	String a = convertIntToString();
-	int neitral = 0;
-    String neitralS = Integer.toString(neitral);
+	String neitralS = String.format("%s", 0);
 	Calculator calculator = new Calculator(new IntegerValueParser());
 	
 	assertEquals(calculator.calculate(a, "-", neitralS),a);
@@ -81,24 +77,15 @@ public void testAssotMul() throws ParseValueException, DivisionByZeroException, 
 	}
 public void testNeitralElMul() throws ParseValueException, DivisionByZeroException, OperationNotSupportedException{
 	String a = convertIntToString();
-	int neitral = 1;
-    String neitralS = Integer.toString(neitral);
-	Calculator calculator = new Calculator(new IntegerValueParser());
+	String neitralS = String.format("%s", 1);
+    Calculator calculator = new Calculator(new IntegerValueParser());
 	
 	assertEquals(calculator.calculate(a, "*", neitralS),a);
 	}
-//public void testDiv() throws ParseValueException, DivisionByZeroException, OperationNotSupportedException{
-//	String a = convertIntToString();
-//	String b = convertIntToString();
-//	Calculator calculator = new Calculator(new IntegerValueParser());
-//	String c = calculator.calculate(a, "/", b);
-//	String d = calculator.calculate(b, "*", c);
-//	assertEquals(d,a);
-//	}
+
 public void testNeitralElDiv() throws ParseValueException, DivisionByZeroException, OperationNotSupportedException{
 	String a = convertIntToString();
-	int neitral = 1;
-    String neitralS = Integer.toString(neitral);
+	String neitralS = String.format("%s", 1);
 	Calculator calculator = new Calculator(new IntegerValueParser());
 	
 	assertEquals(calculator.calculate(a, "/", neitralS),a);

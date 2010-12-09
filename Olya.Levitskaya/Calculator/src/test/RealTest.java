@@ -21,7 +21,6 @@ public class RealTest extends TestCase{
 	public static String convertDoubleToString() {
 		final int range = 100; 
 	    double a = generingNum(range);
-	    //String aString = Double.toString(a);
 	    String aString = String.format("%s", a);
 	    return aString;
 	      
@@ -44,9 +43,8 @@ public void testAssotAdd() throws ParseValueException, DivisionByZeroException, 
 	}
 public void testNeitralElAdd() throws ParseValueException, DivisionByZeroException, OperationNotSupportedException{
 	String a = convertDoubleToString();
-	int neitral = 0;
-    String neitralS = Double.toString(neitral);
-	Calculator calculator = new Calculator(new RealValueParser());
+	String neitralS = String.format("%s", 0);
+    Calculator calculator = new Calculator(new RealValueParser());
 	
 	assertEquals(calculator.calculate(a, "+", neitralS),a);
 	}
@@ -59,8 +57,7 @@ public void testSub() throws ParseValueException, DivisionByZeroException, Opera
 }
 public void testNeitralElSub() throws ParseValueException, DivisionByZeroException, OperationNotSupportedException{
 	String a = convertDoubleToString();
-	int neitral = 0;
-    String neitralS = Double.toString(neitral);
+	String neitralS = String.format("%s", 0);
 	Calculator calculator = new Calculator(new RealValueParser());
 	
 	assertEquals(calculator.calculate(a, "-", neitralS),a);
@@ -82,8 +79,7 @@ public void testAssotMul() throws ParseValueException, DivisionByZeroException, 
 	}
 public void testNeitralElMul() throws ParseValueException, DivisionByZeroException, OperationNotSupportedException{
 	String a = convertDoubleToString();
-	int neitral = 1;
-    String neitralS = Double.toString(neitral);
+	String neitralS = String.format("%s", 1);
 	Calculator calculator = new Calculator(new RealValueParser());
 	
 	assertEquals(calculator.calculate(a, "*", neitralS),a);
@@ -98,8 +94,7 @@ public void testDiv() throws ParseValueException, DivisionByZeroException, Opera
 	}
 public void testNeitralElDiv() throws ParseValueException, DivisionByZeroException, OperationNotSupportedException{
 	String a = convertDoubleToString();
-	int neitral = 1;
-    String neitralS = Double.toString(neitral);
+	String neitralS = String.format("%s", 1);
 	Calculator calculator = new Calculator(new RealValueParser());
 	
 	assertEquals(calculator.calculate(a, "/", neitralS),a);
