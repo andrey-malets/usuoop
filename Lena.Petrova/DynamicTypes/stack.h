@@ -1,5 +1,3 @@
-#include<cstring>
-
 template <
 	class T,
 	class AllocPolicy = myAllocPolicy<>,
@@ -37,9 +35,14 @@ public:
 		return *this;
 	}
 	
-	template <class p> bool operator==(const Stack<T,p,Allocator> &rhs)
+	template <class p> bool operator == (const Stack<T,p,Allocator> &rhs)
 	{
-		return false;
+		if (idx!=rhs.getIdx()) return false;
+		const T * rhsData = rhs.getData(*this);
+		for (size_t i=0; i<idx; ++i) {
+			if (rhsData[i] != data[i]) return false;
+		}
+		return true;
 	}
 	
 	void push (const T &o){
