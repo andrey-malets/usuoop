@@ -3,7 +3,9 @@
 #include "stack.h"
 #include "dynarray.h"
 #include "queue.h"
+
 using namespace std;
+
 bool testDynArray(){
 	bool res = true;
 	typedef DynArray<int> Array;
@@ -17,6 +19,7 @@ bool testDynArray(){
 	}
 	return res;
 }
+
 bool testStack(){
 	bool res = true;
 	typedef Stack<int> stack;
@@ -30,6 +33,7 @@ bool testStack(){
 	}
 	return res;
 }
+
 bool testQueue(){
 	bool res = true;
 	typedef myQueue<int> queue;
@@ -53,6 +57,7 @@ int main()
 	Stack<int> s1;
 	Stack<int, hisAllocPolicy> s2;
 	s2 = s1;
+	s1 = s1;
 
 	return 0;
 }
