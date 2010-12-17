@@ -1,6 +1,7 @@
 package calculator.datatypes.rational;
 
 import calculator.AbstractValue;
+import calculator.DivisionByZeroException;
 import calculator.ParseValueException;
 import junit.framework.TestCase;
 
@@ -15,11 +16,13 @@ public class RationalValuePerserTest extends TestCase {
 		
 	}
 	public void testSimple() throws ParseValueException {
-		simpleNumbers("1/2", new RationalValue(1, 2));
-		simpleNumbers("100/10", new RationalValue(100, 10));
-		simpleNumbers("3/7", new RationalValue(3, 7));
-		simpleNumbers("0", new RationalValue(0, 1));
-		//simpleNumbers("3/7", new RationalValue(3, 7));
-		
+		try{
+		simpleNumbers("1/2", new RationalValue(new Natural(1), new Natural(2)));
+		simpleNumbers("100/10", new RationalValue(new Natural(10), new Natural(1)));
+		simpleNumbers("3/7", new RationalValue(new Natural(3), new Natural(7)));
+		}
+		catch(DivisionByZeroException e){
+			System.out.println("DivisionByZero: "+e.getMessage());
+		}
 	}
 }

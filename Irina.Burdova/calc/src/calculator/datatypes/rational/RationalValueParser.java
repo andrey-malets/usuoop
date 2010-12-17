@@ -2,25 +2,34 @@ package calculator.datatypes.rational;
 
 import calculator.AbstractValue;
 import calculator.AbstractValueParser;
+import calculator.DivisionByZeroException;
 import calculator.ParseValueException;
 
 
 import java.util.regex.*;
 
 public class RationalValueParser implements AbstractValueParser {
-	private static Pattern pattern = Pattern.compile("(-?[0-9]+)(/([0-9]+))?");
+	private static Pattern pattern = Pattern.compile("([1-9][0-9]*)(/([1-9][0-9]*))?");
 	public AbstractValue parse(String value) throws ParseValueException {
         try {
                 Matcher matcher = pattern.matcher(value);
                 if (matcher.matches() ){
-                        int n = Integer.parseInt(matcher.group(1));
-                        if (n == 0)
-                        	return RationalValue.ZERO;
-                        int d = Integer.parseInt(matcher.group(3));
-                        if (d == 0)
-                                throw new ParseValueException();
-                        
-                        return  new RationalValue(n, d) ;
+                       	Long n = Long.parseLong(matcher.group(1));
+                        Long d = Long.parseLong(matcher.group(3));
+                        Natural num = null;
+						try {
+							num = new Natural(n);
+						} catch (DivisionByZeroException e) {
+							
+							e.printStackTrace();
+						}
+                        Natural den = null;
+						try {
+							den = new Natural(d);
+						} catch (DivisionByZeroException e) {
+							e.printStackTrace();
+						}
+                        return  new RationalValue(num, den) ;
                  }
   
             	else{

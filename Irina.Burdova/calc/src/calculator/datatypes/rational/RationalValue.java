@@ -1,76 +1,46 @@
 package calculator.datatypes.rational;
 
 import calculator.AbstractValue;
-import calculator.DivisionByZeroException;
+import calculator.datatypes.rational.Natural;
 
 public class RationalValue extends AbstractValue {
 
-	private final Integer numerator, denominator;
-	
-	public static final RationalValue ZERO = new RationalValue(0, 1);
+	private Natural numerator, denominator;
 
-	public RationalValue(int num, int denom) {
+	public RationalValue  (Natural num, Natural denom){
 		super();
-		int n = Math.abs(num);
-		int d = Math.abs(denom);
-		while (n != 0 && d != 0) {
-			if (n >= d) {
-				n = n % d;
-			} else {
-				d = d % n;
-			}
-		}
-		int nod = n + d;
-		numerator = num / nod;
-		denominator = denom / nod;
+		Natural n = num;
+		Natural d = denom;
+		Natural nod = n.nod(d);
+		numerator = num.div(nod);
+		denominator = denom.div(nod);
 	}
 
 	public String toString() {
-		if (numerator != 0) {
-			return numerator + "/" + denominator;
-		} else {
-			return "0";
-		}
+		return numerator + "/" + denominator;
 	}
 
 	public AbstractValue add(AbstractValue operand) {
-		return new RationalValue(numerator
-				* ((RationalValue) operand).denominator
-				+ ((RationalValue) operand).numerator * denominator,
-				denominator * ((RationalValue) operand).denominator);
+		return new RationalValue(numerator.mul(((RationalValue) operand).denominator).add(((RationalValue) operand).numerator.mul(denominator)),
+				denominator.mul(((RationalValue) operand).denominator));
 	}
 
 	public AbstractValue sub(AbstractValue operand) {
-		return new RationalValue(numerator
-				* ((RationalValue) operand).denominator
-				- ((RationalValue) operand).numerator * denominator,
-				denominator * ((RationalValue) operand).denominator);
+		return new RationalValue(numerator.mul(((RationalValue) operand).denominator).sub(((RationalValue) operand).numerator.mul(denominator)),
+				denominator .mul(((RationalValue) operand).denominator));
 	}
 
 	public AbstractValue mul(AbstractValue operand) {
-		return new RationalValue(numerator
-				* ((RationalValue) operand).numerator, denominator
-				* ((RationalValue) operand).denominator);
+		return new RationalValue(numerator.mul(((RationalValue) operand).numerator), denominator.mul(((RationalValue) operand).denominator));
 	}
 
-	public AbstractValue div(AbstractValue operand)
-			throws DivisionByZeroException {
-		int intValue = ((RationalValue) operand).numerator;
-		if (intValue == 0)
-			throw new DivisionByZeroException();
-		return new RationalValue(numerator
-				* ((RationalValue) operand).denominator, denominator
-				* ((RationalValue) operand).numerator);
+	public AbstractValue div(AbstractValue operand){
+		return new RationalValue(numerator.mul(((RationalValue) operand).denominator), denominator.mul(((RationalValue) operand).numerator));
 	}
 
 	public boolean equals(Object operand) {
 		if (operand != null && operand instanceof RationalValue) {
-			if ((Math.abs(numerator - ((RationalValue) operand).numerator) <= 0.1)
-					&& (Math.abs((denominator - ((RationalValue) operand).denominator)) <= 0.1)) {
-				return true;
-			}
-			if ((numerator == ((RationalValue) operand).numerator)
-					&& (denominator == ((RationalValue) operand).denominator)) {
+			if ((numerator.equals(((RationalValue) operand).numerator))&& (denominator.equals(((RationalValue) operand).denominator))) {
 				return true;
 			} else {
 				return false;
