@@ -8,7 +8,7 @@ public class ComplexValueParserTest extends TestCase {
        public void testSimpleNumbers() throws ParseValueException
        {
                ComplexValueParser p = new ComplexValueParser();
-               AbstractValue v1 = p.parse("1.0+1.0*i"), v2 = p.parse("1.0-1.0*i");
+               AbstractValue v1 = p.parse("1+1*i"), v2 = p.parse("1-1*i");
                assertTrue(v1 instanceof ComplexValue);
                assertTrue(v2 instanceof ComplexValue);
                

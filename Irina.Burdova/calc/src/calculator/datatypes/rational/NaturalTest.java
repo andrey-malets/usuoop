@@ -1,8 +1,8 @@
 package calculator.datatypes.rational;
 
 import junit.framework.TestCase;
-import calculator.datatypes.rational.Natural;
 import calculator.DivisionByZeroException;
+import calculator.datatypes.rational.RationalValue.Natural;
 
 public class NaturalTest extends TestCase{
 	public void testS(){
@@ -19,7 +19,7 @@ public class NaturalTest extends TestCase{
 	}
 	public void testnod(){
 		try{
-			Natural a = new Natural(8);
+			calculator.datatypes.rational.RationalValue.Natural a = new Natural(8);
 			Natural b = new Natural(6);
 			assertEquals(b.nod(a), new Natural(2));
 			

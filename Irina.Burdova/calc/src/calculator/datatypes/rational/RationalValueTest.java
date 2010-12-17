@@ -4,6 +4,7 @@ package calculator.datatypes.rational;
 //import java.util.Random;
 
 import calculator.DivisionByZeroException;
+import calculator.datatypes.rational.RationalValue.Natural;
 import junit.framework.TestCase;
 
 
@@ -12,11 +13,11 @@ public class RationalValueTest extends TestCase{
 	
 	public void testsimple(){
 		try{
-			RationalValue cv1 = new RationalValue(new Natural(1),new Natural(4) );
-			RationalValue cv2 = new RationalValue(new Natural(2), new Natural(4));
-			assertEquals(cv1.add(cv2),(new RationalValue(new Natural(3), new Natural(4))));
-			assertEquals(cv2.sub(cv1),(new RationalValue(new Natural(1), new Natural(4))));
-			assertEquals(cv1.mul(cv2),(new RationalValue(new Natural(1), new Natural(8))));
+			RationalValue cv1 = RationalValue.get(new Natural(1),new Natural(4) );
+			RationalValue cv2 = RationalValue.get(new Natural(2), new Natural(4));
+			assertEquals(cv1.add(cv2),(RationalValue.get(new Natural(3), new Natural(4))));
+			assertEquals(cv2.sub(cv1),(RationalValue.get(new Natural(1), new Natural(4))));
+			assertEquals(cv1.mul(cv2),(RationalValue.get(new Natural(1), new Natural(8))));
 		}
 		catch(DivisionByZeroException e){
 			System.out.println("DivisionByZero: "+e.getMessage());

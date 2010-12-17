@@ -7,6 +7,7 @@ import calculator.ParseValueException;
 
 
 import java.util.regex.*;
+import calculator.datatypes.rational.RationalValue.Natural;
 
 public class RationalValueParser implements AbstractValueParser {
 	private static Pattern pattern = Pattern.compile("([1-9][0-9]*)(/([1-9][0-9]*))?");
@@ -29,7 +30,7 @@ public class RationalValueParser implements AbstractValueParser {
 						} catch (DivisionByZeroException e) {
 							e.printStackTrace();
 						}
-                        return  new RationalValue(num, den) ;
+                        return RationalValue.get(num, den) ;
                  }
   
             	else{
