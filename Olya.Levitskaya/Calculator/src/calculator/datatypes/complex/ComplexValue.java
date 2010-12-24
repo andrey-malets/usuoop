@@ -43,4 +43,14 @@ public AbstractValue div(AbstractValue operand)
 	return new ComplexValue(ComplexValue1/ComplexValue,ComplexValue2/ComplexValue);
 }
 
+public boolean equals(Object obj) {
+	if (! (obj instanceof ComplexValue) ) {
+		return false;
+	}
+	ComplexValue rhs = (ComplexValue) obj;
+	if ( this.value_real == rhs.value_real && this.value_imag == rhs.value_imag)
+		return true;
+	return false;	
+}
+
 }

@@ -14,4 +14,5 @@ public abstract class AbstractValue {
 			throws DivisionByZeroException, OperationNotSupportedException;
 
 	public abstract String toString();
+
 }
