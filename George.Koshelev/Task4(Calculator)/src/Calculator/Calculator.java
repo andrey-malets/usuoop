@@ -14,8 +14,7 @@ import Parser.AbstractValueParser;
 
 public class Calculator {
 	public static String launch(String a, AbstractValueParser pars) throws Exception{
-		Caster cast = new Caster();
-		return calculate(prepare(cast.cast(a)),pars);		
+		return calculate(prepare(Caster.cast(a)),pars);		
 	}
 	private static ArrayList<String> prepare(String a){
 		String list[] = a.split(" ");

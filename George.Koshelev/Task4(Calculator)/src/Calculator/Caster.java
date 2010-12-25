@@ -3,11 +3,10 @@ package Calculator;
 import java.util.Stack;
 
 public class Caster {
-	private Validator valid = new Validator();
-	public String cast(String a) throws Exception {
+	public static String cast(String a) throws Exception {
 		Stack<Character> stack = new Stack<Character>();
 		StringBuffer sb = new StringBuffer();
-		valid.validString(a);
+		Validator.validString(a);
 		Character ch = null;
 		char c = 0;
 		int i = 0;
