@@ -1,5 +1,6 @@
 package calculator.datatypes.rational;
 
+
 import calculator.AbstractValue;
 import calculator.DivisionByZeroException;
 import calculator.ParseValueException;
@@ -26,4 +27,5 @@ public class RationalValuePerserTest extends TestCase {
 			System.out.println("DivisionByZero: "+e.getMessage());
 		}
 	}
+
 }
