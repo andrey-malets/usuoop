@@ -6,10 +6,11 @@ using namespace std;
 
 int main() {
   Vector<int> v;
-  for (int i = 0; i < 1024; ++i) 
-    v.push(i);
-  for (int i = 0; i < 1024; ++i) {
-    v.pop();
-  }
+  v.insert(0,1);
+  v.insert(1,2);
+  v.insert(1,3);
+  v.erase(0);
+  v.erase(0);
+  cout << v[0] << endl;
   return 0;
 }

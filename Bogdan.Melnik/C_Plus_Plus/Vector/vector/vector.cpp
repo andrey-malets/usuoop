@@ -1,6 +1,6 @@
 
-#ifndef _QUEUE_QUEUE_
-#define _QUEUE_QUEUE_
+#ifndef _VECTOR_VECTOR_
+#define _VECTOR_VECTOR_
 
 #include <iostream>
 #include <cstring>
@@ -35,15 +35,18 @@ template< class T,class A = std::allocator<T>,class P = policy<2,10> > class Vec
     virtual ~Vector();
     void push(elem_type i);
     void pop();
-    bool empty();
-    size_t size();
-    size_t capacity();
-    elem_type front();
-    elem_type back();
-    elem_type operator[](const int& i);
-    class VectorUnderflow {};
+    bool empty() const;
+    size_t size() const;
+    size_t capacity() const;
+    void insert(const size_t& i,elem_type e);
+    void erase(const size_t& i);
+    elem_type front() const;
+    elem_type back() const;
+    elem_type operator[](const size_t& i) const;
+    class VectorUnderflowException {};
+    class InvalidRangeInsertException {};
+    class OutOfRangeException {};
 };
-
 
 template< class T,class A, class P > 
 Vector<T,A,P>::Vector() {
@@ -78,7 +81,7 @@ void Vector<T,A,P>::push(T i) {
 template< class T,class A, class P > 
 void Vector<T,A,P>::pop() {
   if (empty()) {
-    throw VectorUnderflow();
+    throw VectorUnderflowException();
   }
   _size--;
   size_t shrink = _p.shrink(_size,_capacity);
@@ -89,33 +92,54 @@ void Vector<T,A,P>::pop() {
 }
 
 template< class T,class A, class P > 
-T Vector<T,A,P>::operator[](const int& i) {
+T Vector<T,A,P>::operator[](const size_t& i) const {
+  if (i +1 > _size)
+    throw OutOfRangeException();
   return _pointer[i];
 }
 
 template< class T,class A, class P > 
-size_t Vector<T,A,P>::size() {
+size_t Vector<T,A,P>::size() const {
   return _size;
 }
 
 template< class T,class A, class P > 
-size_t Vector<T,A,P>::capacity() {
+size_t Vector<T,A,P>::capacity() const {
   return _capacity;
 }
 
 template< class T,class A, class P > 
-T Vector<T,A,P>::front() {
-  return _pointer[0];
+T Vector<T,A,P>::front() const {
+  return (*this)[0];
 }
 
 template< class T,class A, class P > 
-T Vector<T,A,P>::back() {
-  return _pointer[_size - 1];
+T Vector<T,A,P>::back() const {
+  return (*this)[_size - 1];
 }
 
 template< class T,class A, class P > 
-bool Vector<T,A,P>::empty() {
+bool Vector<T,A,P>::empty() const {
   return _size == 0;
+}
+
+template< class T,class A, class P > 
+void Vector<T,A,P>::insert(const size_t& i,T e) {
+  if (i > _size + 1) 
+    throw InvalidRangeInsertException();
+  if (_size + 1 >= _capacity) {  
+    _capacity = _p.grow(_size + 1,_capacity);
+    change(_capacity);
+  }
+  memcpy(&_pointer[i+1],&_pointer[i],(_size - i) * sizeof(T)); // WTF?! its work!
+  _ea.construct(&_pointer[i],e);
+  _size++;
+}
+
+template< class T,class A, class P > 
+void Vector<T,A,P>::erase(const size_t& i) {
+  memcpy(&_pointer[i],&_pointer[i + 1],(_size - i) * sizeof(T));  
+  _size--;
 }
 
 #endif
