@@ -45,10 +45,10 @@ public:
 	}
 	
 	T& operator[] (size_t i){
-		if (i<size){
-			return data[i];
-		}
-		growto(i+1);
+		//if (i<size){
+		//	return data[i];
+		//}
+		//growto(i+1);
 		return data[i];
 	}
 

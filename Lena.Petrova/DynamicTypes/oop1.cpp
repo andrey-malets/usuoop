@@ -9,7 +9,7 @@ using namespace std;
 bool testDynArray(){
 	bool res = true;
 	typedef DynArray<int> Array;
-	Array ar1 = Array(4);
+	Array ar1 = Array(400);
 	for (int i=0; i<200; ++i){
 		ar1[i] = i;
 	}
