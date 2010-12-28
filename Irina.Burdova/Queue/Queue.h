@@ -12,7 +12,9 @@ template <class Type> struct QueueItem{
 template <class Type, class Allocator = std::allocator<QueueItem<Type> > > class Queue
 {
 public:
-	Queue(const Allocator& al = Allocator()) : front(NULL), back(NULL) { a = al; };
+	typedef Allocator alloc;
+
+	Queue() : front(NULL), back(NULL) { }
 	~Queue();
 
 	Type remove();
@@ -25,13 +27,15 @@ public:
 private:
 	QueueItem<Type> *front;
 	QueueItem<Type> *back;
-	Allocator a;
+	static Allocator a;
 };
+
+template<class T, class A> typename Queue<T,A>::alloc Queue<T,A>::a;
 
 template <class Type, class Allocator>
 Queue<Type,Allocator>::~Queue(){
 	while (!is_empty())
-		deallocat();
+		remove();
 }
 
 template <class Type, class Allocator>
@@ -56,7 +60,14 @@ Type Queue<Type,Allocator>::remove(){
 
 	QueueItem<Type> *pt = front;
 	Type retval = pt->item;
-	front = front->next;
+	if(front == back)
+	{
+		front = back = 0;
+	}
+	else
+	{
+		front = front->next;
+	}
 	a.destroy(pt);
 	a.deallocate(pt, 1);
 	return retval;
