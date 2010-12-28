@@ -7,6 +7,19 @@
 
 using std::allocator;
 
+template <class Type>
+struct myPolicy{
+public:
+	size_t getGrowSize(size_t idx, size_t dimention){
+		if (idx > dimension){
+			size_t nsize = 2 * dimension;
+			if (idx >= nsize)
+				nsize = idx+1;
+		}
+		return nsize;
+	}
+}
+
 template<class Type, class Policy = myPolicy, class Allocator = allocator<Type> >
 class DArray{
 public:
@@ -64,7 +77,7 @@ DArray<Type, Policy, Allocator>::~DArray(){
 
 template<class Type, class Policy, class Allocator>
 typename Type& DArray<Type, Policy, Allocator>::operator[](size_t idx){
-	size_t nsize = policy.getGrowSize(idx);
+	size_t nsize = policy.getGrowSize(idx,dimention);
 	setSize(nsize);
 	return arr[idx];
 }
@@ -90,16 +103,5 @@ void  DArray<Type, Policy, Allocator>::setSize(size_t nsize){
 		throw new DArrayException(e.what());
 	}
 }
-template <class Type>
-struct myPolicy{
-public:
-	size_t getGrowSize(size_t idx){
-		if (idx > dimension){
-			size_t nsize = 2 * dimension;
-			if (idx > nsize)
-				nsize = idx+1;
-		}
-		return nsize;
-	}
-}
+
 #endif
