@@ -45,6 +45,7 @@ template< class T,class A = std::allocator<T>,class P = policy<2,10> > class Vec
     elem_type operator[](const size_t& i) const;
     class VectorUnderflowException {};
     class InvalidRangeInsertException {};
+    class InvalidRangeErasetException {};
     class OutOfRangeException {};
 };
 
@@ -138,8 +139,17 @@ void Vector<T,A,P>::insert(const size_t& i,T e) {
 
 template< class T,class A, class P > 
 void Vector<T,A,P>::erase(const size_t& i) {
-  memcpy(&_pointer[i],&_pointer[i + 1],(_size - i) * sizeof(T));  
+  if (i > _size + 1)
+    throw InvalidRangeInsertException();
+  for (size_t q = i; q < _size + 1; ++q) {
+    memcpy(&_pointer[q],&_pointer[q + 1],sizeof(T));  
+  }
   _size--;
+  size_t shrink = _p.shrink(_size,_capacity);
+  if ( shrink != _capacity && _size < shrink ) {
+    change(shrink);
+    _capacity = shrink;
+  }
 }
 
 #endif
