@@ -7,7 +7,7 @@ import java.util.Stack;
 
 import lexer.datatype.AbstractValue;
 import lexer.datatype.TypeMissmatchException;
-import lexer.datatype.integer.Identifier;
+import lexer.datatype.identifier.Identifier;
 import lexer.token.Token;
 import lexer.token.TokenReader;
 import lexer.token.TokenReader.type;

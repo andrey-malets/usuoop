@@ -1,4 +1,4 @@
-package lexer.datatype.integer;
+package lexer.datatype.pair;
 
 import lexer.datatype.AbstractValue;
 import lexer.datatype.TypeMissmatchException;

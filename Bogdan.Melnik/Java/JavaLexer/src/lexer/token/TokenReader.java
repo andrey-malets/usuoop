@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import lexer.datatype.AbstractValue;
-import lexer.datatype.integer.Identifier;
+import lexer.datatype.identifier.Identifier;
 import lexer.datatype.integer.Int;
-import lexer.datatype.integer.Pair;
+import lexer.datatype.pair.Pair;
 import lexer.input.ReadStream;
 
 public class TokenReader {   
