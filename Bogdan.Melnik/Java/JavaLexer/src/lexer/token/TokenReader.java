@@ -2,15 +2,18 @@ package lexer.token;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.TreeMap;
-
+import lexer.datatype.AbstractValue;
+import lexer.datatype.integer.Identifier;
+import lexer.datatype.integer.Int;
 import lexer.input.ReadStream;
 
 public class TokenReader {   
   
     
   private ReadStream readStream;
-  final public TreeMap<Integer, Integer> nameTable = new TreeMap<Integer, Integer>();
+  final public HashMap<Identifier, AbstractValue> nameTable = new HashMap<Identifier, AbstractValue>();
   
   public enum type {    
     ID,
@@ -21,7 +24,7 @@ public class TokenReader {
     OPEN_BRK,
     CLOSE_BRK,
     EOC,
-    INT,
+    ABSTRACT_VALUE,
     EQU
   };
   
@@ -43,7 +46,8 @@ public class TokenReader {
     Character block = readStream.readChar();
     while (isSpace(block)) {
       block = readStream.readChar();      
-    }    
+    }
+    
     if (Character.isLetter(block)) {
       StringBuffer stringBuffer = new StringBuffer("");
       while(Character.isDigit(block) || Character.isLetter(block)) {
@@ -52,10 +56,12 @@ public class TokenReader {
       }
       readStream.unreadChar(block);
       String value = stringBuffer.toString();
-      if (!nameTable.containsKey(value.hashCode()))
-        nameTable.put(value.hashCode(), 0);
-      return new Token(value.hashCode(),type.ID);
+      Identifier identifier = new Identifier(value,value.hashCode());
+      if (!nameTable.containsKey(identifier))
+        nameTable.put(identifier, null);
+      return new Token(value.hashCode(),type.ID,identifier);
     }
+    
     if (Character.isDigit(block)) {
       StringBuffer stringBuffer = new StringBuffer("");               
       while(Character.isDigit(block)) {         
@@ -63,26 +69,27 @@ public class TokenReader {
         block = readStream.readChar();          
       }        
       readStream.unreadChar(block);        
-      return new Token(Integer.parseInt(stringBuffer.toString()),type.INT);
+      Int av = new Int(Integer.parseInt(stringBuffer.toString()));      
+      return new Token(av.hashCode(),type.ABSTRACT_VALUE,av);
     }
     switch (block) { 
       
       case '+':
-        return new Token(0,type.PLUS);
+        return new Token(0,type.PLUS,null);
       case '-':
-        return new Token(0,type.MINUS);
+        return new Token(0,type.MINUS,null);
       case '*':
-        return new Token(0,type.MUL);
+        return new Token(0,type.MUL,null);
       case '/':
-        return new Token(0,type.DIV);       
+        return new Token(0,type.DIV,null);       
       case '(':
-        return new Token(0,type.OPEN_BRK);
+        return new Token(0,type.OPEN_BRK,null);
       case ')':
-        return new Token(0,type.CLOSE_BRK);
+        return new Token(0,type.CLOSE_BRK,null);
       case ';':
-        return new Token(0,type.EOC);
+        return new Token(0,type.EOC,null);
       case '=':
-        return new Token(0,type.EQU);    
+        return new Token(0,type.EQU,null);    
     }
     return null;
   }
