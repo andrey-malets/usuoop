@@ -1,19 +1,20 @@
 #include <iostream>
 #include <vector>
-#include "vector/vector.cpp"
+#include <algorithm>
+#include "vector/vector.h"
 
 using namespace std;
 
 int main() {
   Vector<int> v;
-  for (int i = 5; i < 10; ++i) {
-    v.insert(0,i);
-    cout << v.size() << " " << v.capacity() << " - " << v.front() << endl;
+
+  for (int i = 0; i < 50; ++i) {
+    v.push(i);
   }
-  cout << "Ho!" << endl;
-  for (int i = 5; i < 10; ++i) {
-    cout << v.size() << " " << v.capacity() << " - " << v.front() << endl;
-    v.erase(0);
-  }
+
+  reverse(v.begin(),v.end());
+
+  for_each (v.begin(), v.end(), [] (int x)  { cout << x << endl;  });
+
   return 0;
 }
