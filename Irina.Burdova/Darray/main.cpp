@@ -10,7 +10,7 @@ using std::string;
 void test1(){
 	try{
 		int d = 23;
-		DArray<int> a(10, d);
+		DArray<size_t> a(10, d);
 		assert(a.size() == 10);
 
 		for(int i = 0; i != a.size(); ++i)

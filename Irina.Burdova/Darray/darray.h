@@ -7,21 +7,22 @@
 
 using std::allocator;
 
-template<class Type, class Allocator = allocator<Type> >
+template<class Type, class Policy = myPolicy, class Allocator = allocator<Type> >
 class DArray{
 public:
 	DArray(const Allocator& = Allocator());
-	DArray(unsigned int, const Allocator& = Allocator());
-	DArray(unsigned int, Type&, const Allocator& = Allocator());
+	DArray(size_t, const Allocator& = Allocator());
+	DArray(size_t, Type&, const Allocator& = Allocator());
 	~DArray();
 
-	typename Type& operator[](unsigned int);
+	typename Type& operator[](size_t);
 	size_t size();
-	void setSize(unsigned int);
+	void setSize(size_t);
 
 private:
 	Type *arr;
-	Allocator alloc;
+	Policy policy;
+	static Allocator alloc;
 	size_t dimension;
 };
 
@@ -37,57 +38,49 @@ private:
 	std::string message;
 };
 
-template<class Type, class Allocator>
-DArray<Type, Allocator>::DArray(const Allocator& a) : dimension(0), alloc(a){
+template<class Type, class Policy, class Allocator>
+DArray<Type, Policy, Allocator>::DArray(const Allocator& a) : dimension(0), alloc(a){
 }
 
-template<class Type, class Allocator>
-DArray<Type, Allocator>::DArray(unsigned int size, const Allocator& a) : dimension(size), alloc(a){
+template<class Type, class Policy, class Allocator>
+DArray<Type, Policy, Allocator>::DArray(size_t size, const Allocator& a) : dimension(size), alloc(a){
 	arr = alloc.allocate(size);
 }
 
-template<class Type, class Allocator>
-DArray<Type, Allocator>::DArray(unsigned int size, Type& def, const Allocator& a) : dimension(size), alloc(a){
+template<class Type, class Policy, class Allocator>
+DArray<Type, Policy, Allocator>::DArray(size_t size, Type& def, const Allocator& a) : dimension(size), alloc(a){
 	arr = alloc.allocate(size);
-	for (int i = 0; i != size; ++i){
+	for (size_t i = 0; i != size; ++i){
 		alloc.construct(&arr[i], def);
 	}
 }
 
-template<class Type, class Allocator>
-DArray<Type, Allocator>::~DArray(){
-	for(int i = 0; i != dimension; ++i)
+template<class Type, class Policy, class Allocator>
+DArray<Type, Policy, Allocator>::~DArray(){
+	for(size_t i = 0; i != dimension; ++i)
 		alloc.destroy(&arr[i]);
 	alloc.deallocate(arr, dimension);
 }
 
-template<class Type, class Allocator>
-typename Type& DArray<Type, Allocator>::operator[](unsigned int idx){
-	////if (idx < 0){
-	////	throw new DArrayException("Illegual index");
-	////}
-	//if (idx > dimension){
-	//	unsigned int nsize = 2 * dimension;
-	//	if (idx > nsize)
-	//		nsize = idx+1;
-	//	setSize(nsize);
-	//}
+template<class Type, class Policy, class Allocator>
+typename Type& DArray<Type, Policy, Allocator>::operator[](size_t idx){
+	size_t nsize = policy.getGrowSize(idx);
+	setSize(nsize);
 	return arr[idx];
 }
 
-template<class Type, class Allocator>
-size_t DArray<Type, Allocator>::size()
-{
+template<class Type, class Policy, class Allocator>
+size_t DArray<Type, Policy, Allocator>::size(){
 	return dimension;
 }
 
-template<class Type, class Allocator>
-void  DArray<Type, Allocator>::setSize(unsigned int nsize){
+template<class Type, class Policy, class Allocator>
+void  DArray<Type, Policy, Allocator>::setSize(size_t nsize){
 	try{
 		Type *tmp = alloc.allocate(nsize);
 		std::uninitialized_copy(arr, arr+dimension, tmp);
 		std::uninitialized_fill(tmp+dimension, tmp+nsize, Type());
-		for(int i = 0; i != dimension; ++i)
+		for(size_t i = 0; i != dimension; ++i)
 			alloc.destroy(&arr[i]);
 		alloc.deallocate(arr, dimension);
 		arr = tmp;
@@ -97,5 +90,16 @@ void  DArray<Type, Allocator>::setSize(unsigned int nsize){
 		throw new DArrayException(e.what());
 	}
 }
-
+template <class Type>
+struct myPolicy{
+public:
+	size_t getGrowSize(size_t idx){
+		if (idx > dimension){
+			size_t nsize = 2 * dimension;
+			if (idx > nsize)
+				nsize = idx+1;
+		}
+		return nsize;
+	}
+}
 #endif
