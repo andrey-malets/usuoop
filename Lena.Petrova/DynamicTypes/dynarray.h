@@ -36,7 +36,7 @@ public:
 	}
 
 	size_t getSize() const {
-		return size();
+		return size;
 	}
 
 	template<class newpolicy> const T * const getData(const DynArray<T, newpolicy, Allocator> &) const
