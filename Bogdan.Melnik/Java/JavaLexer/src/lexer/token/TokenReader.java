@@ -2,7 +2,6 @@ package lexer.token;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 import lexer.input.ReadStream;
@@ -32,7 +31,7 @@ public class TokenReader {
     
   private boolean isSpace(Character c) {
     switch (c) {
-      case ' ': case '\t':
+      case ' ': case '\t': case '\n':
         return true;
       default:
         return false;

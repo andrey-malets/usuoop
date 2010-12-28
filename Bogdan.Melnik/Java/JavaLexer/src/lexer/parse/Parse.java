@@ -3,7 +3,6 @@ package lexer.parse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Stack;
 
 import lexer.token.Token;
@@ -118,12 +117,15 @@ public class Parse {
         case EQU:
           a = stack.pop();
           b = stack.pop();
-          if (b.getType() == type.ID) {
-            readToken.nameTable.put(b.getIntegerValue(), a.getIntegerValue());
+          avalue = a.getIntegerValue();
+          if (b.getType() == type.ID) {            
+            if (a.getType() == type.ID)
+              avalue = readToken.nameTable.get(a.getIntegerValue());
+            readToken.nameTable.put(b.getIntegerValue(), avalue);
           } else {
             System.out.println("lvalue need!");
           }
-          stack.push(a);
+          stack.push(new Token(avalue,type.INT));
           break;
         case ID:
           stack.push(new Token(t));
@@ -136,12 +138,10 @@ public class Parse {
           b = stack.pop();      
           avalue = a.getIntegerValue();
           bvalue = b.getIntegerValue();
-          if (a.getType() == type.ID) {            
-            avalue = readToken.nameTable.get(a.getIntegerValue());            
-          }
-          if (b.getType() == type.ID) {
+          if (a.getType() == type.ID)
+            avalue = readToken.nameTable.get(a.getIntegerValue());          
+          if (b.getType() == type.ID) 
             bvalue = readToken.nameTable.get(b.getIntegerValue());
-          }
           stack.push(new Token(avalue + bvalue,type.INT));
           break;
         case MINUS:
@@ -149,12 +149,10 @@ public class Parse {
           b = stack.pop();
           avalue = a.getIntegerValue();
           bvalue = b.getIntegerValue();
-          if (a.getType() == type.ID) {
-            avalue = readToken.nameTable.get(a.getIntegerValue());
-          }
-          if (b.getType() == type.ID) {
-            bvalue = readToken.nameTable.get(b.getIntegerValue());
-          }
+          if (a.getType() == type.ID)
+            avalue = readToken.nameTable.get(a.getIntegerValue());          
+          if (b.getType() == type.ID) 
+            bvalue = readToken.nameTable.get(b.getIntegerValue());          
           stack.push(new Token(avalue - bvalue,type.INT));
           break;
         case MUL:
@@ -162,12 +160,10 @@ public class Parse {
           b = stack.pop();
           avalue = a.getIntegerValue();
           bvalue = b.getIntegerValue();
-          if (a.getType() == type.ID) {
-            avalue = readToken.nameTable.get(a.getIntegerValue());
-          }
-          if (b.getType() == type.ID) {
-            bvalue = readToken.nameTable.get(b.getIntegerValue());
-          }
+          if (a.getType() == type.ID) 
+            avalue = readToken.nameTable.get(a.getIntegerValue());          
+          if (b.getType() == type.ID) 
+            bvalue = readToken.nameTable.get(b.getIntegerValue());          
           stack.push(new Token(avalue * bvalue,type.INT));
           break;
         case DIV:
@@ -175,17 +171,14 @@ public class Parse {
           b = stack.pop();          
           avalue = a.getIntegerValue();
           bvalue = b.getIntegerValue();
-          if (a.getType() == type.ID) {
-            avalue = readToken.nameTable.get(a.getIntegerValue());
-          }
-          if (b.getType() == type.ID) {
-            bvalue = readToken.nameTable.get(b.getIntegerValue());
-          }
+          if (a.getType() == type.ID) 
+            avalue = readToken.nameTable.get(a.getIntegerValue());          
+          if (b.getType() == type.ID) 
+            bvalue = readToken.nameTable.get(b.getIntegerValue());          
           stack.push(new Token(bvalue / avalue,type.INT));
           break;
       }
-    }    
-    System.out.println(" => " + stack.pop().getIntegerValue());    
+    }        
     tokenTree.clear();
   }  
 }
