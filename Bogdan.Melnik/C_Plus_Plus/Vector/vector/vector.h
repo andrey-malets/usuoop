@@ -114,7 +114,7 @@ Vector<T,A,P>::iterator& Vector<T,A,P>::iterator::operator--() {
 }
 
 template< class T, class A, class P > typename 
-Vector<T,A,P>::iterator& Vector<T,A,P>::iterator::operator--(int i) {
+Vector<T,A,P>::iterator& Vector<T,A,P>::iterator::operator--(int) {
   --_ptr;
   return *this;
 }
@@ -126,7 +126,7 @@ Vector<T,A,P>::iterator& Vector<T,A,P>::iterator::operator++() {
 }
 
 template< class T, class A, class P > typename 
-Vector<T,A,P>::iterator& Vector<T,A,P>::iterator::operator++(int i) {
+Vector<T,A,P>::iterator& Vector<T,A,P>::iterator::operator++(int) {
   ++_ptr;
   return *this;
 }
@@ -167,7 +167,7 @@ T& Vector<T,A,P>::iterator::operator*() {
 
 template< class T, class A, class P >
 const T& Vector<T,A,P>::iterator::operator[](size_t i) {
-  return _base[i];
+  return _ptr[i];
 }
 
 template< class T, class A, class P >

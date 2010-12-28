@@ -17,8 +17,8 @@ template< class T,class A = std::allocator<T> > class Queue {
     typedef T elem_type;
     typedef typename A::template rebind<node>::other node_alloc;  
     typedef A elem_alloc;
-    node_alloc _na;
-    elem_alloc _ea;
+    static node_alloc _na;
+    static elem_alloc _ea;
     node *_head, *_tail;
   public:
     Queue();
