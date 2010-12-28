@@ -16,13 +16,13 @@ public:
 	~DArray();
 
 	typename Type& operator[](unsigned int);
-	unsigned int size();
+	size_t size();
 	void setSize(unsigned int);
 
 private:
 	Type *arr;
 	Allocator alloc;
-	unsigned int dimension;
+	size_t dimension;
 };
 
 class DArrayException : public std::exception{
@@ -63,20 +63,20 @@ DArray<Type, Allocator>::~DArray(){
 
 template<class Type, class Allocator>
 typename Type& DArray<Type, Allocator>::operator[](unsigned int idx){
-	if (idx < 0){
-		throw new DArrayException("Illegual index");
-	}
-	if (idx > dimension){
-		unsigned int nsize = 2 * dimension;
-		if (idx > nsize)
-			nsize = idx+1;
-		setSize(nsize);
-	}
+	////if (idx < 0){
+	////	throw new DArrayException("Illegual index");
+	////}
+	//if (idx > dimension){
+	//	unsigned int nsize = 2 * dimension;
+	//	if (idx > nsize)
+	//		nsize = idx+1;
+	//	setSize(nsize);
+	//}
 	return arr[idx];
 }
 
 template<class Type, class Allocator>
-unsigned int DArray<Type, Allocator>::size()
+size_t DArray<Type, Allocator>::size()
 {
 	return dimension;
 }
