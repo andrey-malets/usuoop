@@ -53,16 +53,16 @@ private:
 };
 
 template<class Type, class Policy, class Allocator>
-DArray<Type, Policy, Allocator>::DArray(const Allocator& a) : dimension(0), alloc(a){
+DArray<Type, Policy, Allocator>::DArray() : dimension(0), alloc(Allocator()){
 }
 
 template<class Type, class Policy, class Allocator>
-DArray<Type, Policy, Allocator>::DArray(size_t size, const Allocator& a) : dimension(size), alloc(a){
+DArray<Type, Policy, Allocator>::DArray(size_t size) : dimension(size), alloc(Allocator()){
 	arr = alloc.allocate(size);
 }
 
 template<class Type, class Policy, class Allocator>
-DArray<Type, Policy, Allocator>::DArray(size_t size, Type& def, const Allocator& a) : dimension(size), alloc(a){
+DArray<Type, Policy, Allocator>::DArray(size_t size, Type& def) : dimension(size), alloc(Allocator()){
 	arr = alloc.allocate(size);
 	for (size_t i = 0; i != size; ++i){
 		alloc.construct(&arr[i], def);
