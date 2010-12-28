@@ -11,7 +11,7 @@ using std::allocator;
 struct myPolicy{
 public:
 	size_t getGrowSize(size_t idx, size_t dimension){
-		size_t nsize;
+		size_t nsize = dimension;
 		if (idx > dimension){
 			nsize = 2 * dimension;
 			if (idx >= nsize)
@@ -36,7 +36,7 @@ public:
 private:
 	Type *arr;
 	Policy policy;
-	static Allocator alloc  = Allocator ();
+	Allocator alloc;
 	size_t dimension;
 };
 

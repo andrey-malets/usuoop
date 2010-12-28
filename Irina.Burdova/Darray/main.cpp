@@ -9,17 +9,17 @@ using std::string;
 
 void test1(){
 	try{
-		int d = 23;
+		size_t d = 23;
 		DArray<size_t> a(10, d);
 		assert(a.size() == 10);
 
-		for(int i = 0; i != a.size(); ++i)
+		for(size_t i = 0; i != a.size(); ++i)
 			assert(a[i] == d);
 
 		a[16] = 13;
 		assert(a.size() == 20);
 		assert(a[16] == 13);
-		for(int i = 0; i != 10; ++i)
+		for(size_t i = 0; i != 10; ++i)
 			assert(a[i] == d);
 	}
 	catch(DArrayException* e){
@@ -35,17 +35,17 @@ void test2()
 		DArray<string> a(10, d);
 		assert(a.size() == 10);
 
-		for(int i = 0; i != a.size(); ++i)
+		for(size_t i = 0; i != a.size(); ++i)
 			assert(a[i] == d);
 
 		string tmp = "qwerty";
 		a[16] = tmp;
 		assert(a.size() == 20);
 		assert(a[16] == tmp);
-		for(int i = 0; i != 10; ++i)
+		for(size_t i = 0; i != 10; ++i)
 			assert(a[i] == d);
 		a[29] = tmp;
-		for(int i = 0; i != 10; ++i)
+		for(size_t i = 0; i != 10; ++i)
 			assert(a[i] == d);
 		assert(a[16] == tmp);
 		assert(a[29] == tmp);
@@ -57,7 +57,7 @@ void test2()
 
 }
 
-int main(){
+size_t main(){
 	test1();
 	test2();
 
