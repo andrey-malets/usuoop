@@ -3,7 +3,6 @@ package lexer.token;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.TreeMap;
 import lexer.datatype.AbstractValue;
 import lexer.datatype.integer.Identifier;
 import lexer.datatype.integer.Int;
