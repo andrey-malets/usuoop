@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import lexer.datatype.AbstractValue;
 import lexer.datatype.integer.Identifier;
 import lexer.datatype.integer.Int;
+import lexer.datatype.integer.Pair;
 import lexer.input.ReadStream;
 
 public class TokenReader {   
@@ -25,7 +26,9 @@ public class TokenReader {
     CLOSE_BRK,
     EOC,
     ABSTRACT_VALUE,
-    EQU
+    EQU,
+    COM,
+    TRASH
   };
   
   public TokenReader(InputStream in) {
@@ -72,6 +75,16 @@ public class TokenReader {
       Int av = new Int(Integer.parseInt(stringBuffer.toString()));      
       return new Token(av.hashCode(),type.ABSTRACT_VALUE,av);
     }
+    
+    if (block == '<') {
+      Token left = getToken();
+      getToken();
+      Token right = getToken();
+      getToken();
+      Pair pair = new Pair(Integer.parseInt(left.getAbstractValue().toString()), Integer.parseInt(right.getAbstractValue().toString()));
+      return new Token(pair.hashCode(),type.ABSTRACT_VALUE,pair);
+    }
+    
     switch (block) { 
       
       case '+':
@@ -89,7 +102,11 @@ public class TokenReader {
       case ';':
         return new Token(0,type.EOC,null);
       case '=':
-        return new Token(0,type.EQU,null);    
+        return new Token(0,type.EQU,null);
+      case ',':
+        return new Token(0,type.COM,null);
+      case '>': case '<':
+        return new Token(0,type.TRASH,null);
     }
     return null;
   }
