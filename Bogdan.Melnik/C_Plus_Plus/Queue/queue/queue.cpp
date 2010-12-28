@@ -38,8 +38,8 @@ Queue<T,A>::Queue() {
 
 template< class T,class A > 
 Queue<T,A>::~Queue() {
-//  while (!isempty()) 
-//    shift();
+  while (!isempty()) 
+    shift();
 }
 
 template< class T,class A > 
