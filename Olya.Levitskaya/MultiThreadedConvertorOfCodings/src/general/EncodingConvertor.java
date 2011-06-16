@@ -33,8 +33,7 @@ public class EncodingConvertor {
 		try {
 			fos = new FileOutputStream(parser.getDestinationFile());
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			return false;
 		}
 		Writer osw;
 		try {
