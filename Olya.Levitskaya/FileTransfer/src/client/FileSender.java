@@ -45,6 +45,12 @@ public class FileSender {
 				return false;
 		}
 		
+		try {
+			fis.close();
+		} catch (IOException e) {
+			return false;
+		}
+		
 		return true;
 	}
 }
