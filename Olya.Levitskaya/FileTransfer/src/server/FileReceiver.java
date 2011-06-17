@@ -19,18 +19,19 @@ public class FileReceiver {
 
 		FileOutputStream fos = null;
 		try {
-			fos = new FileOutputStream(argumentParser.getOutputFile());
+			fos = new FileOutputStream(argumentParser.getOutputFile(), false);
 		} catch (FileNotFoundException e) {
 			return false;
 		}
 		
 		byte[] buffer = new byte[1024];
-		int bytesRead = 0;
 		
 		while(true){
-			if (!networkCommunicator.Receive(buffer, bytesRead))
+			ReceiveResult receiveResult = networkCommunicator.Receive(buffer); 
+			if (!receiveResult.getReceiveStatus())
 				return false;
 			
+			int bytesRead = receiveResult.getBytesRead();
 			if (bytesRead <= 0)
 				break;
 			

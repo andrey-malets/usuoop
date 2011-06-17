@@ -24,12 +24,13 @@ public class SocketNetworkCommunicator implements INetworkCommunicator{
 		return true;
 	}
 	
-	public Boolean Receive(byte[] outData, int bytesRead){
+	public ReceiveResult Receive(byte[] outData){
+		int bytesRead;
 		try {
 			bytesRead = clientSocket.getInputStream().read(outData);
 		} catch (IOException e) {
-			return false;
+			return new ReceiveResult(false, -1);
 		}
-		return true;
+		return new ReceiveResult(true, bytesRead);
 	}
 }
