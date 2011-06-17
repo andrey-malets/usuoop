@@ -25,7 +25,7 @@ public class FileSenderTest extends TestCase{
 	
 	public void testSendFileWithNetworkError() {
 		ArgumentParser parser = new ArgumentParser();
-		parser.parse(new String[]{"127.0.0.1", "80", "1.txt"});
+		parser.parse(new String[]{"127.0.0.1", "80", "input.txt"});
 		
 		NetworkCommunicatorTestImpl networkCommunicator = new NetworkCommunicatorTestImpl();
 		networkCommunicator.ExpectConfigure("127.0.0.1", 80, true);
@@ -37,7 +37,7 @@ public class FileSenderTest extends TestCase{
 	
 	public void testSendFile() {
 		ArgumentParser parser = new ArgumentParser();
-		parser.parse(new String[]{"127.0.0.1", "80", "1.txt"});
+		parser.parse(new String[]{"127.0.0.1", "80", "input.txt"});
 		
 		NetworkCommunicatorTestImpl networkCommunicator = new NetworkCommunicatorTestImpl();
 		networkCommunicator.ExpectConfigure("127.0.0.1", 80, true);
