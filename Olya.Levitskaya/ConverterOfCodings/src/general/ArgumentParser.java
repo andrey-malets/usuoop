@@ -15,7 +15,6 @@ public class ArgumentParser{
 		destinationEncoding = arguments[3];
 		return true;
 	}
-
 	
 	public String getSourceFile() {
 		return sourceFile;
@@ -32,5 +31,4 @@ public class ArgumentParser{
 	public String getDestinationEncoding() {
 		return destinationEncoding;
 	}
-
 }

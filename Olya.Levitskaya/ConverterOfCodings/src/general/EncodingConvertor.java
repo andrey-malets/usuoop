@@ -58,7 +58,7 @@ public class EncodingConvertor {
 			} catch (IOException e) {
 				return false;
 			}
-		};
+		}
 		
 		try {
 			osw.close();
