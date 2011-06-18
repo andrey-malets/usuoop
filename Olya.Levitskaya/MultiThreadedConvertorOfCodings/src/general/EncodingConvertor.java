@@ -42,6 +42,7 @@ public class EncodingConvertor {
 			return false;
 		}
 		int bytesRead = 0;
+		
 		Thread thread = new WriterThread(osw);
 		thread.start();
 		
