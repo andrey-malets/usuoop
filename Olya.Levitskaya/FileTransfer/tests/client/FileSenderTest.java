@@ -13,7 +13,7 @@ public class FileSenderTest extends TestCase{
 		assertTrue(networkCommunicator.GetExpectationResult());
 	}
 
-	public void testSendFileForNonExistingFile() {
+	public void testSendFileForNonExistingFile() {		
 		ArgumentParser parser = new ArgumentParser();
 		parser.parse(new String[]{"127.0.0.1", "80", "nonexistingfile.txt"});
 		
@@ -34,6 +34,19 @@ public class FileSenderTest extends TestCase{
 		assertFalse(new FileSender(parser, networkCommunicator).SendFile());
 		assertTrue(networkCommunicator.GetExpectationResult());
 	}
+
+	public void testSendFileWithEndConnectionError() {
+		ArgumentParser parser = new ArgumentParser();
+		parser.parse(new String[]{"127.0.0.1", "80", "input.txt"});
+		
+		NetworkCommunicatorTestImpl networkCommunicator = new NetworkCommunicatorTestImpl();
+		networkCommunicator.ExpectConfigure("127.0.0.1", 80, true);
+		
+		networkCommunicator.ExpectSend(new byte[]{'1', '2', '3'}, true);
+		networkCommunicator.ExpectEnd(false);
+		assertFalse(new FileSender(parser, networkCommunicator).SendFile());
+		assertTrue(networkCommunicator.GetExpectationResult());
+	}
 	
 	public void testSendFile() {
 		ArgumentParser parser = new ArgumentParser();
@@ -43,6 +56,7 @@ public class FileSenderTest extends TestCase{
 		networkCommunicator.ExpectConfigure("127.0.0.1", 80, true);
 		
 		networkCommunicator.ExpectSend(new byte[]{'1', '2', '3'}, true);
+		networkCommunicator.ExpectEnd(true);
 		assertTrue(new FileSender(parser, networkCommunicator).SendFile());
 		assertTrue(networkCommunicator.GetExpectationResult());
 	}

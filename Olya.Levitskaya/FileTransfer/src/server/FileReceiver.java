@@ -14,8 +14,9 @@ public class FileReceiver {
 	}
 
 	public Boolean ReceiveFile(){
-		if (!networkCommunicator.Configure(argumentParser.getPort()))
+		if (!networkCommunicator.Configure(argumentParser.getPort())){
 			return false;
+		}
 
 		FileOutputStream fos = null;
 		try {
@@ -28,8 +29,9 @@ public class FileReceiver {
 		
 		while(true){
 			ReceiveResult receiveResult = networkCommunicator.Receive(buffer); 
-			if (!receiveResult.getReceiveStatus())
+			if (!receiveResult.getReceiveStatus()){
 				return false;
+			}
 			
 			int bytesRead = receiveResult.getBytesRead();
 			if (bytesRead <= 0)
@@ -45,6 +47,9 @@ public class FileReceiver {
 				return false;
 			}
 		}
+		
+		if (!networkCommunicator.End())
+			return false;
 		
 		try {
 			fos.close();

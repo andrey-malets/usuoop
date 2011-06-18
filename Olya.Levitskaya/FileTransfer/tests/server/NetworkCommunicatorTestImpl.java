@@ -6,6 +6,7 @@ public class NetworkCommunicatorTestImpl implements INetworkCommunicator{
 	private Boolean expectedConfigureResult;
 	private byte[] expectedOutData;
 	private ReceiveResult expectedReceiveResult;
+	private Boolean expectedEndResult;
 	
 	public Boolean GetExpectationResult(){
 		return expectationResult;
@@ -35,5 +36,14 @@ public class NetworkCommunicatorTestImpl implements INetworkCommunicator{
 		for (int i = 0; i < outData.length; i++)
 			expectedOutData[i] = outData[i];
 		expectedReceiveResult = receiveResult;
+	}
+	
+	public Boolean End(){
+		expectationResult = true;
+		return expectedEndResult;
+	}
+	
+	public void ExpectEnd(Boolean endResult){
+		expectedEndResult = endResult;
 	}
 }

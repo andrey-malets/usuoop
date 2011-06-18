@@ -30,6 +30,19 @@ public class FileReceiverTest extends TestCase{
 		assertTrue(networkCommunicator.GetExpectationResult());
 	}
 	
+	public void testReceiveFileWithEndConnectionError() {
+		ArgumentParser parser = new ArgumentParser();
+		parser.parse(new String[]{"80", "output.txt"});
+		
+		NetworkCommunicatorTestImpl networkCommunicator = new NetworkCommunicatorTestImpl();
+		networkCommunicator.ExpectConfigure(80, true);
+		
+		networkCommunicator.ExpectReceive(new byte[0], new ReceiveResult(true, 0));
+		networkCommunicator.ExpectEnd(false);
+		assertFalse(new FileReceiver(parser, networkCommunicator).ReceiveFile());
+		assertTrue(networkCommunicator.GetExpectationResult());
+	}
+	
 	public void testReceiveFile() {
 		ArgumentParser parser = new ArgumentParser();
 		parser.parse(new String[]{"80", "output.txt"});
@@ -38,6 +51,7 @@ public class FileReceiverTest extends TestCase{
 		networkCommunicator.ExpectConfigure(80, true);
 		
 		networkCommunicator.ExpectReceive(new byte[0], new ReceiveResult(true, 0));
+		networkCommunicator.ExpectEnd(true);
 		assertTrue(new FileReceiver(parser, networkCommunicator).ReceiveFile());
 		
 		assertTrue(networkCommunicator.GetExpectationResult());

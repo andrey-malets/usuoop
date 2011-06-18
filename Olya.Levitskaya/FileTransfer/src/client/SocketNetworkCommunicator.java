@@ -23,4 +23,13 @@ public class SocketNetworkCommunicator implements INetworkCommunicator{
 		}
 		return true;
 	}
+	
+	public Boolean End(){
+		try {
+			socket.close();
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
+	}
 }

@@ -2,17 +2,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Random;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
 public class ClientServerTest extends TestCase{
-	public synchronized void testSendFile() {
+	public void testSendFile() {
 		File f = new File("output.txt");
 		f.delete();
 		
-		Thread server = new ServerThread();
-		Thread client = new ClientThread();
+		Random random = new Random();
+		int port = 6000 + random.nextInt(100);
+		
+		Thread server = new ServerThread(port);
+		Thread client = new ClientThread(port);
 		
 		server.start();
 		try {
@@ -28,14 +32,12 @@ public class ClientServerTest extends TestCase{
 		} catch (InterruptedException e) {
 			throw new AssertionError();
 		}
-
+		
 		try {
-			Thread.sleep(50);
+			server.join();
 		} catch (InterruptedException e) {
 			throw new AssertionError();
 		}
-
-		server.stop();
 		
 		FileInputStream fis;
 		try {

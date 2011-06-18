@@ -45,6 +45,9 @@ public class FileSender {
 				return false;
 		}
 		
+		if (!networkCommunicator.End())
+			return false;
+		
 		try {
 			fis.close();
 		} catch (IOException e) {
