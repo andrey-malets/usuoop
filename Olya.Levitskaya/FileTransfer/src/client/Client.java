@@ -6,8 +6,8 @@ public class Client {
 		ArgumentParser parser = new ArgumentParser();
 		parser.parse(args);
 		if (new FileSender(parser, new SocketNetworkCommunicator()).SendFile())
-			System.out.println("Файл передан успешно.");
+			System.out.println("Send success.");
 		else
-			System.out.println("Файл не получилось передать.");
+			System.out.println("Send failed.");
 	}
 }

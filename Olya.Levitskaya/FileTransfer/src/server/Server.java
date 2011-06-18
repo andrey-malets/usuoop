@@ -6,9 +6,9 @@ public class Server {
 		ArgumentParser parser = new ArgumentParser();
 		parser.parse(args);
 		if (new FileReceiver(parser, new SocketNetworkCommunicator()).ReceiveFile())
-			System.out.println("Файл принят успешно.");
+			System.out.println("Receive success.");
 		else
-			System.out.println("Файл не получилось принять.");
+			System.out.println("Receive failed.");
 	}
 
 }
