@@ -32,7 +32,7 @@ public class EncodingConvertorTest extends TestCase{
 		assertFalse(convertor.convert());
 	}
 	public void testConvert() throws IOException {
-		char[] expectedContent = new char[]{'Ð°', 'Ð±', 'Ð²'};
+		char[] expectedContent = new char[]{'à', 'á', 'â'};
 		FileOutputStream fos = new FileOutputStream("1.txt");
 		Writer osw = new OutputStreamWriter(fos, "UTF8");
 		osw.write(expectedContent);
