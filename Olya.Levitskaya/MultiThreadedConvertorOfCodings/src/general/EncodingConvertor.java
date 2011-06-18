@@ -10,9 +10,9 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 public class EncodingConvertor {
-	private IArgumentParser parser;
+	private ArgumentParser parser;
 
-	public EncodingConvertor(IArgumentParser parser){
+	public EncodingConvertor(ArgumentParser parser){
 		this.parser = parser;
 	}
 	
@@ -70,14 +70,12 @@ public class EncodingConvertor {
 		try {
 			osw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return false;
 		}
 		try {
 			isr.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		return false;
 		}
 		
 		return true;
