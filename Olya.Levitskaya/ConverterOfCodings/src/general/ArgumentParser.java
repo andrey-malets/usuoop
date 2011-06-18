@@ -1,11 +1,11 @@
 package general;
 
-public class ArgumentParser implements IArgumentParser{
+public class ArgumentParser{
 	private String sourceFile;
 	private String sourceEncoding;
 	private String destinationFile;
 	private String destinationEncoding;
-	@Override
+	
 	public Boolean parse(String[] arguments) {
 		if (arguments.length != 4)
 			return false;
@@ -16,22 +16,19 @@ public class ArgumentParser implements IArgumentParser{
 		return true;
 	}
 
-	@Override
+	
 	public String getSourceFile() {
 		return sourceFile;
 	}
 
-	@Override
 	public String getSourceEncoding() {
 		return sourceEncoding;
 	}
 
-	@Override
 	public String getDestinationFile() {
 		return destinationFile;
 	}
 
-	@Override
 	public String getDestinationEncoding() {
 		return destinationEncoding;
 	}

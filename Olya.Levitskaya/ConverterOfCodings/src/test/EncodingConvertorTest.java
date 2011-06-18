@@ -10,23 +10,22 @@ import java.io.Writer;
 import junit.framework.TestCase;
 import general.ArgumentParser;
 import general.EncodingConvertor;
-import general.IArgumentParser;
 
 public class EncodingConvertorTest extends TestCase{
 	public void testNoSourceFile() {
-		IArgumentParser parser = new ArgumentParser();
+		ArgumentParser parser = new ArgumentParser();
 		parser.parse(new String[]{"nonExistingFile.txt", "utf8", "2.txt", "ascii"});
 		EncodingConvertor convertor = new EncodingConvertor(parser);
 		assertFalse(convertor.convert());
 	}
 	public void testNoSourceEncoding() {
-		IArgumentParser parser = new ArgumentParser();
+		ArgumentParser parser = new ArgumentParser();
 		parser.parse(new String[]{"1.txt", "encoding", "2.txt", "ascii"});
 		EncodingConvertor convertor = new EncodingConvertor(parser);
 		assertFalse(convertor.convert());
 	}
 	public void testNoDestinationEncoding() {
-		IArgumentParser parser = new ArgumentParser();
+		ArgumentParser parser = new ArgumentParser();
 		parser.parse(new String[]{"1.txt", "utf8", "2.txt", "encoding"});
 		EncodingConvertor convertor = new EncodingConvertor(parser);
 		assertFalse(convertor.convert());
@@ -38,7 +37,7 @@ public class EncodingConvertorTest extends TestCase{
 		osw.write(expectedContent);
 		osw.close();
 		
-		IArgumentParser parser = new ArgumentParser();
+		ArgumentParser parser = new ArgumentParser();
 		parser.parse(new String[]{"1.txt", "UTF8", "2.txt", "cp1251"});
 		EncodingConvertor convertor = new EncodingConvertor(parser);
 		assertTrue(convertor.convert());
