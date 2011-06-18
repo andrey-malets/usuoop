@@ -20,7 +20,7 @@ public class FileReceiver {
 
 		FileOutputStream fos = null;
 		try {
-			fos = new FileOutputStream(argumentParser.getOutputFile(), false);
+			fos = new FileOutputStream(argumentParser.getOutputFile(), false);//если есть файл - перезапишет
 		} catch (FileNotFoundException e) {
 			return false;
 		}

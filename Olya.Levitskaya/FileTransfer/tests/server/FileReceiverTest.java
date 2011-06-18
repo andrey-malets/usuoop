@@ -55,26 +55,5 @@ public class FileReceiverTest extends TestCase{
 		assertTrue(new FileReceiver(parser, networkCommunicator).ReceiveFile());
 		
 		assertTrue(networkCommunicator.GetExpectationResult());
-		
-		FileInputStream fis;
-		try {
-			fis = new FileInputStream("output.txt");
-		} catch (FileNotFoundException e) {
-			throw new AssertionFailedError();
-		}
-		
-		byte[] actual = new byte[1];
-		
-		try {
-			assertEquals(-1, fis.read(actual));
-		} catch (IOException e) {
-			throw new AssertionFailedError();
-		}
-					
-		try {
-			fis.close();
-		} catch (IOException e) {
-			throw new AssertionFailedError();
-		}
 	}
 }

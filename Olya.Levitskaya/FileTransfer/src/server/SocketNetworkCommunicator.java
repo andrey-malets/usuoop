@@ -35,9 +35,7 @@ public class SocketNetworkCommunicator implements INetworkCommunicator{
 		try {
 			bytesRead = clientSocket.getInputStream().read(outData);
 		} catch (IOException e) {
-			System.out.println(e);
-			//if (e.getMessage() != "Socket is closed")
-				return new ReceiveResult(false, -1);
+			return new ReceiveResult(false, -1);
 		}
 				
 		return new ReceiveResult(true, bytesRead);

@@ -4,7 +4,10 @@ public class Client {
 
 	public static void main(String[] args) {
 		ArgumentParser parser = new ArgumentParser();
-		parser.parse(args);
+		if(!parser.parse(args)){
+			System.out.println("Error in Arguments");
+			return;
+		}
 		if (new FileSender(parser, new SocketNetworkCommunicator()).SendFile())
 			System.out.println("Send success.");
 		else

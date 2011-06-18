@@ -28,7 +28,7 @@ public class ClientServerTest extends TestCase{
 		client.start();
 		
 		try {
-			client.join();
+			client.join(); //дождаться завершения клиентского потока
 		} catch (InterruptedException e) {
 			throw new AssertionError();
 		}

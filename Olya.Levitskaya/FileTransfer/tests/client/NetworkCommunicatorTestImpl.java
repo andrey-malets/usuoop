@@ -1,5 +1,5 @@
 package client;
-
+//Это реализация интерфейса INetworkCommunicator специально для тестов 
 public class NetworkCommunicatorTestImpl implements INetworkCommunicator{
 	private Boolean expectationResult = false;
 	private String expectedIPAddress;
