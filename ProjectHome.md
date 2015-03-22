@@ -1,0 +1,1 @@
+Projects describes the USU OOP course.
